@@ -198,6 +198,7 @@ setup()
 login()
 userlist()
 deleteuser()
+userlist()
 mainMenu()
 
 

@@ -17,6 +17,12 @@ class Person():
         self.password = password
         self.telephonenumber = telephonenumber
 
+    def __repr__(self):
+        return [self.number,  self.givenName, self.surname, self.streetAddress, self.zipCode, self.city, self.emailAddress, self.username, self.password, self.telephonenumber]
+
+
+
+
     def writeToDatabase(self, personType):
         row_contents = [self.number,  self.givenName, self.surname,
         self.streetAddress, self.zipCode, self.city, self.emailAddress, self.username, self.password, self.telephonenumber]
