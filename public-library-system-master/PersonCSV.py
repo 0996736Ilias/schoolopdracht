@@ -41,6 +41,26 @@ def deletePerson(username):
             else:
                 tmp.append(r.__repr__())
         print(tmp)
-        tmp.pop(-0)
+        tmp.pop(-1)
         writer.writerows(tmp)
 
+def editPerson(number):
+    list = readFromPersonCSV()
+    with open(personCSV, mode='r+', newline='') as csv_file:
+        tmp = []
+        writer = csv.writer(csv_file)
+        for r in list:
+            if number == r.number:
+                r.givenName = input("Given name")
+                r.surname = input("Sur name")
+                r.streetAddress = input("Street Address")
+                r.zipCode = input("Zip Code")
+                r.city = input("City")
+                r.emailAddress = input("Email")
+                r.username = input("User name")
+                r.password = input("Password")
+                r.telephonenumber = input("telephone number")
+                tmp.append(r.__repr__())
+            else:
+                tmp.append(r.__repr__())
+        writer.writerows(tmp)

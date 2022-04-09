@@ -6,6 +6,7 @@ import Subscriber
 import Backup
 import Book
 import BookItem
+from sys import  exit
 
 import Catalog
 
@@ -46,15 +47,19 @@ def userlist (): #try to get from persons to subscribers Reech1950
 
 
 
-def deleteuser ():
+def DeleteUser ():
     global userList, CURRENTUSER
 
     PersonCSV.deletePerson(CURRENTUSER)
     print("user deleted")
- #  setup()
- #  CURRENTUSER = 0
- #  login()
+    setup()
+    CURRENTUSER = 0
+    login()
+def EditUser ():
+    global userList, CURRENTUSER
 
+    PersonCSV.editPerson(CURRENTUSER)
+    print("user Edited")
 
 
 
@@ -62,13 +67,6 @@ def deleteuser ():
 def register():
     number = int(userList[-1].number) + 1
     print("[Register] Register a person by filling in the information.")
-
-    while True:
-        gender = input("[Register] Gender (male/female): ")
-        if gender == "male" or gender == "female":
-            break
-        print("[Register] Invalid input, please try again!")
-
     nameSet = input("[Register] NameSet: ")
     givenName = input("[Register] GivenName: ")
     surname = input ("[Register] Surname: ")
@@ -176,9 +174,10 @@ def mainMenu():
             catalog.searchBook()
             
         elif option == "2":
-            setup()
-            CURRENTUSER = 0
-            login()
+            exit()
+        #    setup()
+        #    CURRENTUSER = 0
+        #    login()
 
         elif option == "3" and Librarian.librarianCheck(CURRENTUSER):
             addBook()
@@ -196,9 +195,6 @@ def mainMenu():
 
 setup()
 login()
-userlist()
-deleteuser()
-userlist()
 mainMenu()
 
 
