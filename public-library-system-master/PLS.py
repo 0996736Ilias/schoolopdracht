@@ -150,16 +150,24 @@ def mainMenu():
     while True:
         if Librarian.librarianCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
+            print("[Menu] 3. Search book item")
+            print("[Menu] 3. Add book")
+            print("[Menu] 3. Add bookItem")
+            print("[Menu] 3. user list")
+            print("[Menu] 3. Delete a user")
+            print("[Menu] 4. Register new user")
             print("[Menu] 2. Logout")
+
             print("[Menu] 3. Add book")
             print("[Menu] 4. Make backup")
             print("[Menu] 5. Restore backup")
+            print("[Menu] 6. Delete user user")
 
         elif Subscriber.SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
             print("[Menu] 2. Logout")
-            print("[Menu] 3. Delete current user")
-            print("[Menu] 4. Register new user")
+            print("[Menu] 3. Delete user user")
+
             print("[Menu] 5. Edit current user")
         
         option = input("[Menu]\n[Menu] Choice: ")

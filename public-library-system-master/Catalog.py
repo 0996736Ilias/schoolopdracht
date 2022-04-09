@@ -97,7 +97,7 @@ class Catalog():
                         self.foundBooks.append(book)
                     if criteria.lower() in book.country.lower() and "country" in searchInputArray:
                         self.foundBooks.append(book)
-
+                break
         if inCatalog:
             self.chooseLoanBook()
 

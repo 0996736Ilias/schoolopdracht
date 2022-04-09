@@ -1,5 +1,4 @@
 import csv
-import csv
 import Person
 
 personCSV = "PersonDatabase.csv"
@@ -29,4 +28,3 @@ def deletePerson(username):
                print('p')
                row[7] = "Null"
 
-@
