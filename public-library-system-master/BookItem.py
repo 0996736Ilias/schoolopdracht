@@ -8,7 +8,8 @@ class BookItem():
         self.author = author
         self.copies = copies
         self.ISBN = ISBN
-
+    def __repr__(self):
+      return  self.title + ", " + self.author + ", " + self.copies + ", " + self.ISBN
  
     def writeToDatabase(self):
         row_contents = [self.title, self.author, self.copies, self.ISBN]

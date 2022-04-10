@@ -18,6 +18,9 @@ class Book():
         self.title = title
         self.year = year
 
+    def __repr__(self):
+        return self.author + ", " + self.country + ", " + self.imageLink+", " + self.language + ", " + self.link+", "+str(self.pages)+", "+self.title+", "+str(self.year)
+
     def writeToDatabase(self, book):
         with open('BookDatabase.json') as json_file:
             data  = json.load(json_file)
@@ -56,7 +59,7 @@ class Book():
                 print("[Book]")
                 userInput = input("[Book] Would you like loan this book (y/n): ")
                 if userInput == "y":
-                    loanItem = LoanItem.LoanItem(CURRENTUSER, 14, self.findISBN())
+                    loanItem = LoanItem.LoanItem(CURRENTUSER, 30, self.findISBN())
                     loanItem.writeToDatabase()
                     print("[Book] Loan successfully administrated.")   
                     print("[Book]")                

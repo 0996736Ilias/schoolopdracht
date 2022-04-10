@@ -1,3 +1,4 @@
+import BookItemCSV
 import Person
 import PersonCSV
 import BookJSON
@@ -14,10 +15,12 @@ import Catalog
 CURRENTUSER = 0
 
 def setup():
-    global userList, bookList, subscriberList
+    global userList, bookList, subscriberList, bookItemList
     userList = PersonCSV.readFromPersonCSV()
     bookList = BookJSON.readFromBookJSON()
     subscriberList = Subscriber.readFromSubscriberCSV()
+    bookItemList = BookItemCSV.readFromBookItemCSV()
+
 def checkUsername(username):
     global userList, CURRENTUSER
 
@@ -45,7 +48,15 @@ def userlist (): #try to get from persons to subscribers Reech1950
                 v + 1
                 print(a)
 
+def printBookItems():
+    global bookItemList
+    for j in bookItemList:
+        print(j)
 
+def printBooks():
+    global bookList
+    for j in bookList:
+        print(j)
 
 def DeleteUser ():
     global userList, CURRENTUSER
@@ -55,14 +66,12 @@ def DeleteUser ():
     setup()
     CURRENTUSER = 0
     login()
+
 def EditUser ():
     global userList, CURRENTUSER
 
     PersonCSV.editPerson(CURRENTUSER)
     print("user Edited")
-
-
-
 
 def register():
     number = int(userList[-1].number) + 1
@@ -150,16 +159,17 @@ def mainMenu():
             print("[Menu] 1. Search book")
             print("[Menu] 3. Search book item")
             print("[Menu] 3. Add book")
+            print("[Menu] 3. book list")
             print("[Menu] 3. Add bookItem")
             print("[Menu] 3. user list")
             print("[Menu] 3. Delete a user")
             print("[Menu] 4. Register new user")
             print("[Menu] 2. Logout")
 
-            print("[Menu] 3. Add book")
+
             print("[Menu] 4. Make backup")
             print("[Menu] 5. Restore backup")
-            print("[Menu] 6. Delete user user")
+            print("[Menu] 6. Delete a user")
 
         elif Subscriber.SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
@@ -175,9 +185,9 @@ def mainMenu():
             
         elif option == "2":
             exit()
-        #    setup()
-        #    CURRENTUSER = 0
-        #    login()
+            setup()
+            CURRENTUSER = 0
+            login()
 
         elif option == "3" and Librarian.librarianCheck(CURRENTUSER):
             addBook()

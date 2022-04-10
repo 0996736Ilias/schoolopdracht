@@ -26,6 +26,16 @@ def writeToBookItemCSV(row_contents):
         writer.writerow(row_contents)
 
 
+def readFromBookItemCSV():
+    bookItemList = []
 
+    with open(bookItemCSV, mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        # line_count = 0
+
+        for r in csv_reader:
+            bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
+
+    return bookItemList
 
 
