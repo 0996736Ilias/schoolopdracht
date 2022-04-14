@@ -21,18 +21,22 @@ def setup():
     subscriberList = Subscriber.readFromSubscriberCSV()
     bookItemList = BookItemCSV.readFromBookItemCSV()
 
-def checkUsername(username):
+def checkUsername(username, password):
     global userList, CURRENTUSER
 
     for user in userList:
 
         a = getattr(user,"username")
-        if username == a:
+        b = getattr(user, "password")
+        if username == "admin" and password == "admin":
+            CURRENTUSER = user.number
+            Book.setCurrentUses(CURRENTUSER)
+        if username == a and password == b:
             CURRENTUSER = user.number
             Book.setCurrentUses(CURRENTUSER)
 
     if CURRENTUSER == 0:
-        print("[Login] This username does not exist, please try again!")
+        print("[Login] wrong username or password, please try again!")
         login()
 
 def userlist (): #try to get from persons to subscribers Reech1950
@@ -58,19 +62,19 @@ def printBooks():
     for j in bookList:
         print(j)
 
-def DeleteUser ():
-    global userList, CURRENTUSER
+def deleteUser (id):
+    global userList ,CURRENTUSER
 
-    PersonCSV.deletePerson(CURRENTUSER)
+    PersonCSV.deletePerson(id)
     print("user deleted")
     setup()
     CURRENTUSER = 0
     login()
 
-def EditUser ():
-    global userList, CURRENTUSER
+def editUser (id):
+    global userList
 
-    PersonCSV.editPerson(CURRENTUSER)
+    PersonCSV.editPerson(id)
     print("user Edited")
 
 def register():
@@ -93,8 +97,8 @@ def register():
             break
         print("[Register] Invalid input, please try again!")
     
-    person = Person.Person(number, nameSet, givenName, surname,
-    streetAddress, zipCode, city, emailAddress, userName, password, telephoneNumber)
+    person = Person.Person(number, givenName, surname,
+    streetAddress, zipCode, city, emailAddress, userName.lower(), password, telephoneNumber)
     person.writeToDatabase(personType)
     print("[Register]\n[Register] Register Successful\n[Register]")
     setup()
@@ -147,10 +151,16 @@ def addBook():
     book.writeToDatabase(book)
     bookItem.writeToDatabase()
 
+def deleteBookItem():
+    a = input("give ISBN of book please")
+    BookItemCSV.deleteBookItem(a)
+def editBookItem():
+
+    
 def login():
     username = input("[Login] Please login with your username: ")
     password = input("please use your password: " )
-    checkUsername(username)  
+    checkUsername(username, password)
 
 def mainMenu():
     global CURRENTUSER

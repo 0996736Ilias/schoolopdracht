@@ -23,7 +23,7 @@ class Book():
 
     def writeToDatabase(self, book):
         with open('BookDatabase.json') as json_file:
-            data  = json.load(json_file)
+            data = json.load(json_file)
             
             book_data = {
                 "author": self.author,
@@ -33,6 +33,7 @@ class Book():
                 "link": self.link,
                 "pages": self.pages,
                 "title": self.title,
+                "ISBN": data[-1].ISBN,
                 "year": self.year
             }
             data.append(book_data)
