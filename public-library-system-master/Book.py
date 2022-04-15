@@ -7,7 +7,7 @@ CURRENTUSER = 0
 
 class Book():  
     """This is a book class"""
-    def __init__(self, author, country, imageLink, language, link, pages, 
+    def __init__(self, author, country, imageLink, language, ISBN, link, pages,
     title, year):
         self.author = author
         self.country = country
@@ -15,6 +15,7 @@ class Book():
         self.language = language
         self.link = link
         self.pages = pages
+        self.ISBN = ISBN
         self.title = title
         self.year = year
 
@@ -33,7 +34,7 @@ class Book():
                 "link": self.link,
                 "pages": self.pages,
                 "title": self.title,
-                "ISBN": data[-1].ISBN,
+                "ISBN": self.ISBN,
                 "year": self.year
             }
             data.append(book_data)
@@ -51,6 +52,7 @@ class Book():
         print("[Book] Image Link: " + self.imageLink)
         print("[Book] Language: " + self.language)
         print("[Book] Link: " + self.link)
+        print("[Book] ISBN: " + str(self.ISBN))
         print("[Book] Pages: " + str(self.pages))
         print("[Book] Title: " + self.title)
         print("[Book] Year: " + str(self.year))

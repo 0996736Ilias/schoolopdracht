@@ -7,12 +7,12 @@ import Subscriber
 import Backup
 import Book
 import BookItem
-from sys import  exit
+from sys import exit
 
 import Catalog
 
-
 CURRENTUSER = 0
+
 
 def setup():
     global userList, bookList, subscriberList, bookItemList
@@ -21,12 +21,13 @@ def setup():
     subscriberList = Subscriber.readFromSubscriberCSV()
     bookItemList = BookItemCSV.readFromBookItemCSV()
 
+
 def checkUsername(username, password):
     global userList, CURRENTUSER
 
     for user in userList:
 
-        a = getattr(user,"username")
+        a = getattr(user, "username")
         b = getattr(user, "password")
         if username == "admin" and password == "admin":
             CURRENTUSER = user.number
@@ -39,31 +40,31 @@ def checkUsername(username, password):
         print("[Login] wrong username or password, please try again!")
         login()
 
-def userlist (): #try to get from persons to subscribers Reech1950
+
+def userlist():  # try to get from persons to subscribers Reech1950
     global subscriberList, userList
-    v = 0
     for j in userList:
         a = getattr(j, "username")
-
         for Number in subscriberList:
-
             b = getattr(j, "number")
             if Number == b:
-                v + 1
                 print(a)
+
 
 def printBookItems():
     global bookItemList
     for j in bookItemList:
         print(j)
 
+
 def printBooks():
     global bookList
     for j in bookList:
         print(j)
 
-def deleteUser (id):
-    global userList ,CURRENTUSER
+
+def deleteUser(id):
+    global userList, CURRENTUSER
 
     PersonCSV.deletePerson(id)
     print("user deleted")
@@ -71,18 +72,19 @@ def deleteUser (id):
     CURRENTUSER = 0
     login()
 
-def editUser (id):
+
+def editUser(id):
     global userList
 
     PersonCSV.editPerson(id)
     print("user Edited")
 
+
 def register():
     number = int(userList[-1].number) + 1
     print("[Register] Register a person by filling in the information.")
-    nameSet = input("[Register] NameSet: ")
     givenName = input("[Register] GivenName: ")
-    surname = input ("[Register] Surname: ")
+    surname = input("[Register] Surname: ")
     streetAddress = input("[Register] Street Address: ")
     zipCode = input("[Register] Zip Code: ")
     city = input("[Register] City: ")
@@ -90,25 +92,26 @@ def register():
     userName = input("[Register] Username: ")
     password = input("[Register] Password: ")
     telephoneNumber = input("[Register] Telephone Number: ")
-    
+
     while True:
         personType = input("[Register] Is this person a Librarian or Subscriber (librarian/subscriber): ")
         if personType == "librarian" or personType == "subscriber":
             break
         print("[Register] Invalid input, please try again!")
-    
+
     person = Person.Person(number, givenName, surname,
-    streetAddress, zipCode, city, emailAddress, userName.lower(), password, telephoneNumber)
+                           streetAddress, zipCode, city, emailAddress, userName.lower(), password, telephoneNumber)
     person.writeToDatabase(personType)
     print("[Register]\n[Register] Register Successful\n[Register]")
     setup()
+
 
 def addBook():
     print("[Book] Add a Book by filing in the information.")
     author = input("[Book] Author: ")
     country = input("[Book] Country: ")
     imageLink = input("[Book] ImageLink: ")
-    language = input ("[Book] Language: ")
+    language = input("[Book] Language: ")
     link = input("[Book] Link: ")
 
     while True:
@@ -118,7 +121,7 @@ def addBook():
             print("[Book] Invalid number, please try again.")
         else:
             break
-    
+
     title = input("[Book] Title: ")
 
     while True:
@@ -145,22 +148,30 @@ def addBook():
         else:
             break
 
-    book = Book.Book(author, country, imageLink, language, link, pages, 
-    title, year)
+    book = Book.Book(author, country, imageLink, language, link, pages,
+                     title, ISBN, year)
     bookItem = BookItem.BookItem(title, author, copies, ISBN)
     book.writeToDatabase(book)
     bookItem.writeToDatabase()
 
+
+def borrowed():
+    borrowed =
+
 def deleteBookItem():
     a = input("give ISBN of book please")
     BookItemCSV.deleteBookItem(a)
-def editBookItem():
 
-    
+
+def editBookItem(ID):
+    BookItemCSV.editBookItem(ID)
+
+
 def login():
     username = input("[Login] Please login with your username: ")
-    password = input("please use your password: " )
+    password = input("please use your password: ")
     checkUsername(username, password)
+
 
 def mainMenu():
     global CURRENTUSER
@@ -176,25 +187,24 @@ def mainMenu():
             print("[Menu] 4. Register new user")
             print("[Menu] 2. Logout")
 
-
             print("[Menu] 4. Make backup")
             print("[Menu] 5. Restore backup")
             print("[Menu] 6. Delete a user")
 
         elif Subscriber.SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
+
             print("[Menu] 2. Logout")
             print("[Menu] 3. Delete user user")
-
+            print("[Menu] 4. return book")
             print("[Menu] 5. Edit current user")
-        
+
         option = input("[Menu]\n[Menu] Choice: ")
         if option == "1":
             catalog = Catalog.Catalog()
             catalog.searchBook()
-            
+
         elif option == "2":
-            exit()
             setup()
             CURRENTUSER = 0
             login()
@@ -213,9 +223,7 @@ def mainMenu():
         else:
             print("[Menu] Invalid input. Please try again.")
 
+
 setup()
 login()
 mainMenu()
-
-
-    

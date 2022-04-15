@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\LoanAdministrationDatabase.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\PersonDatabase.csv">
           <value>
             <Attribute>

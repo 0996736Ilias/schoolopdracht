@@ -1,10 +1,11 @@
-
 import Book
 import BookJSON
 import json
 
+
 class Catalog():
     """This is a catalog class"""
+
     def __init__(self):
         self.foundBooks = []
         self.bookList = BookJSON.readFromBookJSON()
@@ -27,17 +28,17 @@ class Catalog():
                 except ValueError:
                     print("[Catalog] Invalid number, please try again.]")
                 else:
-                    for number in range(1, (len(self.foundBooks)+1)):
+                    for number in range(1, (len(self.foundBooks) + 1)):
                         if chosenBook == number:
                             loopCheck = False
                     print("[Catalog] Invalid number, please try again.")
 
             print("[Catalog]")
-            self.foundBooks[chosenBook-1].showBook()
+            self.foundBooks[chosenBook - 1].showBook()
 
     def searchBook(self):
         inCatalog = True
-        bookList = BookJSON.readFromBookJSON()      
+        bookList = BookJSON.readFromBookJSON()
         searchKeywords = []
         searchInputArray = ""
         validInput = False
@@ -51,7 +52,6 @@ class Catalog():
             for book in bookList:
                 print("[Catalog] " + str(iteration) + " - " + book.title)
                 iteration += 1
-                
 
             loopCheck = True
             while loopCheck:
@@ -60,45 +60,43 @@ class Catalog():
                 except ValueError:
                     print("[Catalog] Invalid number, please try again.")
                 else:
-                    for number in range(1, (len(self.bookList)+1)):
+                    for number in range(1, (len(self.bookList) + 1)):
                         if chosenBook == number:
                             loopCheck = False
                     if loopCheck:
-                        print("[Catalog] Invalid number, please try again.")   
-                         
+                        print("[Catalog] Invalid number, please try again.")
+
             print("[Catalog]")
-            self.bookList[chosenBook-1].showBook()
+            self.bookList[chosenBook - 1].showBook()
             inCatalog = False
 
         if "title" in searchInput.lower():
-                searchInputArray += "title"
-                searchKeywords.append(input("[Catalog] Fill in the title >>> "))   
-                validInput = True 
+            searchInputArray += "title"
+            searchKeywords.append(input("[Catalog] Fill in the title >>> "))
+            validInput = True
 
         if "author" in searchInput.lower():
-                searchInputArray += "author"
-                searchKeywords.append(input("[Catalog] Fill in the author >>> "))
-                validInput = True
+            searchInputArray += "author"
+            searchKeywords.append(input("[Catalog] Fill in the author >>> "))
+            validInput = True
 
         if "country" in searchInput.lower():
-                searchInputArray += "country"
-                searchKeywords.append(input("[Catalog] Fill in the country >>> "))    
-                validInput = True
+            searchInputArray += "country"
+            searchKeywords.append(input("[Catalog] Fill in the country >>> "))
+            validInput = True
 
         if not validInput and inCatalog:
             print("[Catalog]\n[Catalog] Invalid input, please try again.\n[Catalog]")
             self.searchBook()
 
         for criteria in searchKeywords:
-                for book in bookList:
-                    if criteria.lower() in book.title.lower() and "title" in searchInputArray:
-                        self.foundBooks.append(book)
-                    if criteria.lower() in book.author.lower() and "author" in searchInputArray:
-                        self.foundBooks.append(book)
-                    if criteria.lower() in book.country.lower() and "country" in searchInputArray:
-                        self.foundBooks.append(book)
-                break
+            for book in bookList:
+                if criteria.lower() in book.title.lower() and "title" in searchInputArray:
+                    self.foundBooks.append(book)
+                if criteria.lower() in book.author.lower() and "author" in searchInputArray:
+                    self.foundBooks.append(book)
+                if criteria.lower() in book.country.lower() and "country" in searchInputArray:
+                    self.foundBooks.append(book)
+            break
         if inCatalog:
             self.chooseLoanBook()
-
-            
