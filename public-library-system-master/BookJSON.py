@@ -1,12 +1,14 @@
 import json
 import Book
 
+bookJSON = "BookDatabase.json"
+
 
 def readFromBookJSON():
     pass
     bookList = []
 
-    with open("BookDatabase.json", "r") as read_file:
+    with open(bookJSON, "r") as read_file:
         data = json.load(read_file)
 
     for row in data:
@@ -18,11 +20,22 @@ def readFromBookJSON():
 
 
 def readFromJSONReturnJSON():
-    with open("BookDatabase.json", "r") as read_file:
+    with open(bookJSON, "r") as read_file:
         data = json.load(read_file)
 
     return data
 
 
-def deleteBook():
-    return
+def deleteBook(ISBN):
+    new_list = []
+    with open(bookJSON, mode='r', newline='') as read_file:
+        tmp = json.load(read_file)
+        for r in tmp:
+            if ISBN == r["ISBN"]:
+                print("skip")
+            else:
+                new_list.append(r)
+            print(r.__repr__())
+    print(new_list)
+    with open(bookJSON, mode='w', newline='') as read_file:
+        json.dump(new_list, read_file, indent=4)

@@ -1,16 +1,5 @@
 [
     {
-        "author": "Chinua Achebe",
-        "country": "Nigeria",
-        "imageLink": "images/things-fall-apart.jpg",
-        "language": "English",
-        "link": "https://en.wikipedia.org/wiki/Things_Fall_Apart\n",
-        "pages": 209,
-        "title": "Things Fall Apart",
-        "ISBN": "0",
-        "year": 1958
-    },
-    {
         "author": "Hans Christian Andersen",
         "country": "Denmark",
         "imageLink": "images/fairy-tales.jpg",
@@ -62,7 +51,7 @@
         "link": "https://en.wikipedia.org/wiki/One_Thousand_and_One_Nights\n",
         "pages": 288,
         "title": "One Thousand and One Nights",
-        "ISBN": "9781234567897",
+        "ISBN": "9781234564897",
         "year": 1200
     },
     {
@@ -95,7 +84,7 @@
         "link": "https://en.wikipedia.org/wiki/Le_P%C3%A8re_Goriot\n",
         "pages": 443,
         "title": "Le P\u00e8re Goriot",
-        "ISBN": "9781234525397",
+        "ISBN": "9781234525797",
         "year": 1835
     },
     {
@@ -106,7 +95,7 @@
         "link": "https://en.wikipedia.org/wiki/Molloy_(novel)\n",
         "pages": 256,
         "title": "Molloy, Malone Dies, The Unnamable, the trilogy",
-        "ISBN": "9781234567647",
+        "ISBN": "9781234767747",
         "year": 1952
     },
     {
@@ -161,7 +150,7 @@
         "link": "\n",
         "pages": 320,
         "title": "Poems",
-        "ISBN": "9781234567897",
+        "ISBN": "9781536567897",
         "year": 1952
     },
     {
@@ -172,7 +161,7 @@
         "link": "https://en.wikipedia.org/wiki/Journey_to_the_End_of_the_Night\n",
         "pages": 505,
         "title": "Journey to the End of the Night",
-        "ISBN": "9781234569897",
+        "ISBN": "9781234369897",
         "year": 1932
     },
     {
@@ -183,7 +172,7 @@
         "link": "https://en.wikipedia.org/wiki/Don_Quixote\n",
         "pages": 1056,
         "title": "Don Quijote De La Mancha",
-        "ISBN": "97812345697797",
+        "ISBN": "97812325697797",
         "year": 1610
     },
     {
@@ -194,7 +183,7 @@
         "link": "https://en.wikipedia.org/wiki/The_Canterbury_Tales\n",
         "pages": 544,
         "title": "The Canterbury Tales",
-        "ISBN": "9781234567897",
+        "ISBN": "9781234961897",
         "year": 1450
     },
     {
@@ -216,7 +205,7 @@
         "link": "https://en.wikipedia.org/wiki/Nostromo\n",
         "pages": 320,
         "title": "Nostromo",
-        "ISBN": "9781234547497",
+        "ISBN": "9781224547417",
         "year": 1904
     },
     {
@@ -227,7 +216,7 @@
         "link": "https://en.wikipedia.org/wiki/Great_Expectations\n",
         "pages": 194,
         "title": "Great Expectations",
-        "ISBN": "9781234567897",
+        "ISBN": "9781234537837",
         "year": 1861
     },
     {
@@ -238,7 +227,7 @@
         "link": "https://en.wikipedia.org/wiki/Jacques_the_Fatalist\n",
         "pages": 596,
         "title": "Jacques the Fatalist",
-        "ISBN": "9781234567897",
+        "ISBN": "9781234567822",
         "year": 1796
     },
     {
@@ -249,7 +238,7 @@
         "link": "https://en.wikipedia.org/wiki/Berlin_Alexanderplatz\n",
         "pages": 600,
         "title": "Berlin Alexanderplatz",
-        "ISBN": "9781234569947",
+        "ISBN": "9781234569941",
         "year": 1929
     },
     {
@@ -260,7 +249,7 @@
         "link": "https://en.wikipedia.org/wiki/Crime_and_Punishment\n",
         "pages": 551,
         "title": "Crime and Punishment",
-        "ISBN": "9781299067897",
+        "ISBN": "9781299062894",
         "year": 1866
     },
     {
@@ -271,7 +260,7 @@
         "link": "https://en.wikipedia.org/wiki/The_Idiot\n",
         "pages": 656,
         "title": "The Idiot",
-        "ISBN": "9781235547897",
+        "ISBN": "9781235547844",
         "year": 1869
     },
     {
@@ -282,7 +271,7 @@
         "link": "https://en.wikipedia.org/wiki/Demons_(Dostoyevsky_novel)\n",
         "pages": 768,
         "title": "The Possessed",
-        "ISBN": "9781234567747",
+        "ISBN": "9781234167747",
         "year": 1872
     },
     {
@@ -304,7 +293,7 @@
         "link": "https://en.wikipedia.org/wiki/Middlemarch\n",
         "pages": 800,
         "title": "Middlemarch",
-        "ISBN": "978166467897",
+        "ISBN": "978166467117",
         "year": 1871
     },
     {
@@ -326,7 +315,7 @@
         "link": "https://en.wikipedia.org/wiki/Medea_(play)\n",
         "pages": 104,
         "title": "Medea",
-        "ISBN": "9781266600447",
+        "ISBN": "9781266600427",
         "year": -431
     },
     {
@@ -337,7 +326,7 @@
         "link": "https://en.wikipedia.org/wiki/Absalom,_Absalom!\n",
         "pages": 313,
         "title": "Absalom, Absalom!",
-        "ISBN": "9788834500447",
+        "ISBN": "9788834500433",
         "year": 1936
     },
     {
@@ -348,7 +337,7 @@
         "link": "https://en.wikipedia.org/wiki/The_Sound_and_the_Fury\n",
         "pages": 326,
         "title": "The Sound and the Fury",
-        "ISBN": "9781994500447",
+        "ISBN": "9781994500415",
         "year": 1929
     },
     {
@@ -359,7 +348,7 @@
         "link": "https://en.wikipedia.org/wiki/Madame_Bovary\n",
         "pages": 528,
         "title": "Madame Bovary",
-        "ISBN": "9781234567737",
+        "ISBN": "9781234567732",
         "year": 1857
     },
     {
@@ -458,7 +447,7 @@
         "link": "https://en.wikipedia.org/wiki/Hunger_(Hamsun_novel)\n",
         "pages": 176,
         "title": "Hunger",
-        "ISBN": "9781234667797",
+        "ISBN": "9781234664711",
         "year": 1890
     },
     {
@@ -491,18 +480,7 @@
         "link": "https://en.wikipedia.org/wiki/Memoirs_of_Hadrian\n",
         "pages": 408,
         "title": "Memoirs of Hadrian",
-        "ISBN": "9781234577097",
+        "ISBN": "9781231577095",
         "year": 1951
-    },
-    {
-        "author": "me",
-        "country": "here",
-        "imageLink": "12",
-        "language": "31",
-        "link": 32,
-        "pages": "123",
-        "title": 1234,
-        "ISBN": "23",
-        "year": 32
     }
 ]

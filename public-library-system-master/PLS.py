@@ -1,4 +1,5 @@
 import BookItemCSV
+import LoanAdministrationCSV
 import Person
 import PersonCSV
 import BookJSON
@@ -148,15 +149,15 @@ def addBook():
         else:
             break
 
-    book = Book.Book(author, country, imageLink, language, link, pages,
-                     title, ISBN, year)
+    book = Book.Book(author, country, imageLink, language, link, pages, title, ISBN, year)
     bookItem = BookItem.BookItem(title, author, copies, ISBN)
     book.writeToDatabase(book)
     bookItem.writeToDatabase()
 
 
 def borrowed():
-    borrowed =
+    global CURRENTUSER
+    LoanAdministrationCSV.loanedToPerson(CURRENTUSER)
 
 def deleteBookItem():
     a = input("give ISBN of book please")
@@ -165,7 +166,8 @@ def deleteBookItem():
 
 def editBookItem(ID):
     BookItemCSV.editBookItem(ID)
-
+def deleteBook():
+    BookJSON.deleteBook("9781234534597")
 
 def login():
     username = input("[Login] Please login with your username: ")
@@ -226,4 +228,5 @@ def mainMenu():
 
 setup()
 login()
+deleteBook()
 mainMenu()

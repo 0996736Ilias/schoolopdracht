@@ -1,7 +1,6 @@
 import csv
 import LoanAdministrationCSV
 import BookItemCSV
-import Book
 
 
 class LoanItem():
@@ -11,6 +10,8 @@ class LoanItem():
         self.subscribernumber = subscriberNumber
         self.days = days
         self.ISBN = ISBN
+    def __repr__(self):
+        return str(self.subscribernumber) + ", "+ self.days+ ", "+self.ISBN
 
     def writeToDatabase(self):
         with open("LoanAdministrationDatabase.csv", 'a', newline='') as write_obj:
@@ -36,3 +37,6 @@ def loanAvailabilityCheck(ISBN, author, title):
         return True
     else:
         return False
+
+
+

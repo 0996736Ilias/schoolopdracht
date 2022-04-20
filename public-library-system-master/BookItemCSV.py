@@ -1,8 +1,5 @@
 import csv
-import Person
 import BookItem
-import BookJSON
-from random import randint
 
 bookItemCSV = "BookItemDatabase.csv"
 

@@ -26,16 +26,7 @@ def deletePerson(username):
         writer = csv.writer(csv_file)
         for r in list:
             if username == r.number:
-                r.givenName = ''
-                r.surname = ''
-                r.streetAddress = ''
-                r.zipCode = ''
-                r.city = ''
-                r.emailAddress = ''
-                r.username = ''
-                r.password = ''
-                r.telephonenumber = ''
-                tmp.append(r.__repr__())
+                print("[PersonCSV] SKIP")
             else:
                 tmp.append(r.__repr__())
         print(tmp)

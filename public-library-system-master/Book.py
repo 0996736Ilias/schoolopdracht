@@ -5,10 +5,12 @@ import PersonCSV
 
 CURRENTUSER = 0
 
-class Book():  
+
+class Book():
     """This is a book class"""
+
     def __init__(self, author, country, imageLink, language, ISBN, link, pages,
-    title, year):
+                 title, year):
         self.author = author
         self.country = country
         self.imageLink = imageLink
@@ -20,12 +22,12 @@ class Book():
         self.year = year
 
     def __repr__(self):
-        return self.author + ", " + self.country + ", " + self.imageLink+", " + self.language + ", " + self.link+", "+str(self.pages)+", "+self.title+", "+str(self.year)
+        return self.author +", "+ self.country+", "+ self.imageLink+", "+ self.language+", "+ str(self.link)+", "+ str(self.pages)+", "+ self.title+", "+ str(self.year)
 
     def writeToDatabase(self, book):
         with open('BookDatabase.json') as json_file:
             data = json.load(json_file)
-            
+
             book_data = {
                 "author": self.author,
                 "country": self.country,
@@ -40,12 +42,11 @@ class Book():
             data.append(book_data)
 
             self.writeToJson(data)
-    
+
     def writeToJson(self, data):
-        with open("BookDatabase.json", 'w',) as f:
+        with open("BookDatabase.json", 'w', ) as f:
             json.dump(data, f, indent=4)
-        
-    
+
     def showBook(self):
         print("[Book] Author: " + self.author)
         print("[Book] Country: " + self.country)
@@ -56,7 +57,7 @@ class Book():
         print("[Book] Pages: " + str(self.pages))
         print("[Book] Title: " + self.title)
         print("[Book] Year: " + str(self.year))
-        
+
         if LoanItem.loanAvailabilityCheck(self.findISBN(), self.author, self.title):
             while True:
                 print("[Book]")
@@ -64,8 +65,8 @@ class Book():
                 if userInput == "y":
                     loanItem = LoanItem.LoanItem(CURRENTUSER, 30, self.findISBN())
                     loanItem.writeToDatabase()
-                    print("[Book] Loan successfully administrated.")   
-                    print("[Book]")                
+                    print("[Book] Loan successfully administrated.")
+                    print("[Book]")
                     break
                 if userInput == "n":
                     break
@@ -78,6 +79,7 @@ class Book():
         for bookItem in bookItemList:
             if bookItem.author == self.author and bookItem.title == self.title:
                 return bookItem.ISBN
+
 
 def setCurrentUses(usernumber):
     global CURRENTUSER
