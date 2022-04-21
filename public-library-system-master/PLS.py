@@ -177,7 +177,6 @@ def mainMenu():
             print("[Menu] 2. Search book item")
             print("[Menu] 3. Add book")
             print("[Menu] 4. book list")
-            print("[Menu] 5. Add bookItem")
             print("[Menu] 6. user list")
             print("[Menu] 7. Delete a user")
             print("[Menu] 8. Register new user")
@@ -204,7 +203,7 @@ def mainMenu():
 
 
         elif option == "2"and Librarian.librarianCheck(CURRENTUSER):
-            print("2")
+            BookItem.bookItemSearch(input("give ISBN, Title or author"))
 
         elif option == "3" and Librarian.librarianCheck(CURRENTUSER):
             addBook()
@@ -213,11 +212,10 @@ def mainMenu():
             Book.bookList()
 
         elif option == "5" and Librarian.librarianCheck(CURRENTUSER):
-            BookItem.
-
+            a = BookItem.BookItem(input("input title"),input("input author"),input("input copies"),input("ISBN"))
+            BookItem.writeToBookItemCSV(a)
         elif option == "6" and Librarian.librarianCheck(CURRENTUSER):
             userlist()
-
         elif option == "7" and Librarian.librarianCheck(CURRENTUSER):
             Person.deletePerson(input("give user number to delete"))
         elif option == "8" and Librarian.librarianCheck(CURRENTUSER):
