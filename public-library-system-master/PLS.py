@@ -7,17 +7,44 @@ import BookItem
 import LoanItem
 import Catalog
 import csv
-
+import json
 CURRENTUSER = 0
 
 
 def setup():
     global userList, bookList, subscriberList, bookItemList, librarianList
     userList = readFromPersonCSV()
-    bookList = Book.readFromBookJSON()
+    bookList = readFromBookJSON()
     subscriberList = readFromSubscriberCSV()
     bookItemList = BookItem.readFromBookItemCSV()
     librarianList = readFromLibrarianCSV()
+
+
+def loanAvailabilityCheck(ISBN, author, title):
+    copiesCount = 0
+    copies = 0
+    for book in BookItem.readFromBookItemCSV():
+        if author == book.author and title == book.title:
+            copies = int(book.copies)
+
+    for loanItem in readFromLoanItemCSV():
+        if ISBN == loanItem.ISBN:
+            copiesCount += 1
+
+    if copies - copiesCount > 0:
+        return True
+    else:
+        return False
+
+
+def readFromLoanItemCSV():
+    loanItemList = []
+
+    with open("loanAdministrationDatabase.csv", mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for r in csv_reader:
+            loanItemList.append(LoanItem(r[0], r[1], r[2]))
+    return loanItemList
 
 
 def readFromPersonCSV():
@@ -27,6 +54,20 @@ def readFromPersonCSV():
         for r in csv_reader:
             List.append(Person.Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
     return List
+
+
+def readFromBookJSON():
+    bookList = []
+
+    with open("BookDatabase.json", "r") as read_file:
+        data = json.load(read_file)
+
+    for row in data:
+        bookList.append(
+            Book(row["author"], row["country"], row["imageLink"], row["language"],
+                 row["link"], row["pages"], row["title"], row["ISBN"], row["year"]))
+
+    return bookList
 
 
 def readFromSubscriberCSV():
@@ -77,10 +118,12 @@ def librarianCheck(number):
     if number in librarianList:
         return True
 
+
 def SubscriberCheck(number):
     numberList = readFromSubscriberCSV()
     if number in numberList:
         return True
+
 
 def userlist():
     global subscriberList, userList
@@ -131,10 +174,12 @@ def register():
         print("[Register] Invalid input, please try again!")
     if personType == "librarian":
         person = Librarian.Librarian(number, givenName, surname,
-                           streetAddress, zipCode, city, emailAddress, userName.lower(), password, telephoneNumber)
+                                     streetAddress, zipCode, city, emailAddress, userName.lower(), password,
+                                     telephoneNumber)
     if personType == "Subscriber":
         person = Librarian.Librarian(number, givenName, surname,
-                           streetAddress, zipCode, city, emailAddress, userName.lower(), password, telephoneNumber)
+                                     streetAddress, zipCode, city, emailAddress, userName.lower(), password,
+                                     telephoneNumber)
     person.writeToDatabase()
     print("[Register]\n[Register] Register Successful\n[Register]")
     setup()

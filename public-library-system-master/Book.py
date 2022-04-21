@@ -1,7 +1,6 @@
 import json
 import BookItem
 import LoanItem
-import LoanAdministrationCSV
 CURRENTUSER = 0
 
 
@@ -63,7 +62,7 @@ class Book():
                 print("[Book]")
                 userInput = input("[Book] Would you like loan this book (y/n): ")
                 if userInput == "y":
-                    if LoanAdministrationCSV.limitCheck(CURRENTUSER) == False:
+                    if LoanItem.limitCheck(CURRENTUSER) == False:
                         print("you already have 3 books")
                         break
                     loanItem = LoanItem.LoanItem(CURRENTUSER, 30, self.findISBN())
@@ -83,85 +82,62 @@ class Book():
             if bookItem.author == self.author and bookItem.title == self.title:
                 return bookItem.ISBN
 
+    def deleteBook(self, ISBN):
+        new_list = []
+        with open("BookDatabase.json", mode='r', newline='') as read_file:
+            tmp = json.load(read_file)
+            for r in tmp:
+                if ISBN == r.ISBN:
+                    print("skip")
+                else:
+                    new_list.append(r)
+                print(r.__repr__())
+        print(new_list)
+        with open("BookDatabase.json", mode='w', newline='') as read_file:
+            json.dump(new_list, read_file, indent=4)
+
+    def editBook(self, ISBN):
+        new_list = []
+        with open("BookDatabase.json", mode='r', newline='') as read_file:
+            tmp = json.load(read_file)
+            for r in tmp:
+                if ISBN == r["ISBN"]:
+                    r["author"] = input("new author ")
+                    r["country"] = input("new country ")
+                    r["imageLink"] = input("new imageLink ")
+                    r["language"] = input("new language")
+                    r["link"] = input("new link")
+                    r["pages"] = input("new pages")
+                    r["title"] = input("new title")
+                    r["year"] = input("new year")
+                    new_list.append(r)
+                else:
+                    new_list.append(r)
+                print(r.__repr__())
+        print(new_list)
+        with open("BookDatabase.json", mode='w', newline='') as read_file:
+            json.dump(new_list, read_file, indent=4)
 
 def setCurrentUses(usernumber):
     global CURRENTUSER
     CURRENTUSER = usernumber
 
 
-bookJSON = "BookDatabase.json"
 
 
-def readFromBookJSON():
-    bookList = []
 
-    with open(bookJSON, "r") as read_file:
-        data = json.load(read_file)
 
-    for row in data:
-        bookList.append(
-            Book(row["author"], row["country"], row["imageLink"], row["language"],
-                 row["link"], row["pages"], row["title"], row["ISBN"], row["year"]))
-
-    return bookList
 
 
 def readFromJSONReturnJSON():
-    with open(bookJSON, "r") as read_file:
+    with open("BookDatabase.json", "r") as read_file:
         data = json.load(read_file)
 
     return data
 
 
-def deleteBook(ISBN):
-    new_list = []
-    with open(bookJSON, mode='r', newline='') as read_file:
-        tmp = json.load(read_file)
-        for r in tmp:
-            if ISBN == r.ISBN:
-                print("skip")
-            else:
-                new_list.append(r)
-            print(r.__repr__())
-    print(new_list)
-    with open(bookJSON, mode='w', newline='') as read_file:
-        json.dump(new_list, read_file, indent=4)
 
 
-def editBook(ISBN):
-    new_list = []
-    with open(bookJSON, mode='r', newline='') as read_file:
-        tmp = json.load(read_file)
-        for r in tmp:
-            if ISBN == r["ISBN"]:
-                r["author"] = input("new author ")
-                r["country"] = input("new country ")
-                r["imageLink"] = input("new imageLink ")
-                r["language"] = input("new language")
-                r["link"] = input("new link")
-                r["pages"] = input("new pages")
-                r["title"] = input("new title")
-                r["year"] = input("new year")
-                new_list.append(r)
-            else:
-                new_list.append(r)
-            print(r.__repr__())
-    print(new_list)
-    with open(bookJSON, mode='w', newline='') as read_file:
-        json.dump(new_list, read_file, indent=4)
 
 
-def bookList():
-    with open(bookJSON, "r") as read_file:
-        data = json.load(read_file)
 
-    for row in data:
-        print(row)
-
-
-def searchBook():
-    a = "Iliad"
-    list = readFromBookJSON()
-    for i in list:
-        if i.title == a:
-            print(i)
