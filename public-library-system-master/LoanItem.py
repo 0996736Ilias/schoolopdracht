@@ -1,6 +1,5 @@
 import csv
-import LoanAdministrationCSV
-import BookItemCSV
+import BookItem
 
 
 class LoanItem():
@@ -25,7 +24,7 @@ class LoanItem():
 def loanAvailabilityCheck(ISBN, author, title):
     copiesCount = 0
     copies = 0
-    for book in BookItemCSV.readFromBookItemCSV():
+    for book in BookItem.readFromBookItemCSV():
         if author == book.author and title == book.title:
             copies = int(book.copies)
 
@@ -38,5 +37,62 @@ def loanAvailabilityCheck(ISBN, author, title):
     else:
         return False
 
+def returnItem(ISBN):
+    a = 0
+    list = readFromLoanItemCSV()
+    with open(loanItemCSV, mode='r+', newline='') as csv_file:
+        tmp = []
+
+        writer = csv.writer(csv_file)
+        for r in list:
+            if ISBN == r.ISBN and a == 0:
+                a = a + 1
+                print("[LoanItem] SKIP")
+            else:
+                tmp.append(r.__repr__())
+        print(tmp)
+        tmp.pop(-1)
+        writer.writerows(tmp)
 
 
+
+
+
+
+loanItemCSV = "loanAdministrationDatabase.csv"
+
+
+def readFromLoanItemCSV():
+    loanItemList = []
+
+    with open(loanItemCSV, mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for r in csv_reader:
+            loanItemList.append(LoanItem.LoanItem(r[0], r[1], r[2]))
+    return loanItemList
+
+
+def writeToLoanItemCSV(row_contents):
+    with open(loanItemCSV, 'a+', newline='') as write_obj:
+        csv_writer = csv.writer(write_obj)
+        csv_writer.writerow(row_contents)
+
+
+def loanedToPerson(ID):
+    loanedlist = readFromLoanItemCSV()
+    catalog = BookItem.readFromBookItemCSV()
+    for j in loanedlist:
+        if j.subscribernumber == str(ID):
+            for i in catalog:
+                if (j.ISBN == i.ISBN):
+                    print(i)
+
+def limitCheck(ID):
+    loanedlist = readFromLoanItemCSV()
+    a = 0
+    for j in loanedlist:
+        if j.subscribernumber == ID:
+            a = a + 1
+    if a >= 3:
+        return False
+    return True

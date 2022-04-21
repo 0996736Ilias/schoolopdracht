@@ -1,6 +1,6 @@
+
 import Book
-import BookJSON
-import json
+
 
 
 class Catalog():
@@ -8,7 +8,7 @@ class Catalog():
 
     def __init__(self):
         self.foundBooks = []
-        self.bookList = BookJSON.readFromBookJSON()
+        self.bookList = Book.readFromBookJSON()
 
     def chooseLoanBook(self):
         print("[Catalog]")
@@ -38,7 +38,7 @@ class Catalog():
 
     def searchBook(self):
         inCatalog = True
-        bookList = BookJSON.readFromBookJSON()
+        bookList = Book.readFromBookJSON()
         searchKeywords = []
         searchInputArray = ""
         validInput = False

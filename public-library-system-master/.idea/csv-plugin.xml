@@ -31,13 +31,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\PersonTmp.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="\SubscriberDatabase.csv">
           <value>
             <Attribute>
