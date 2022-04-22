@@ -21,23 +21,6 @@ def setup():
     librarianList = readFromLibrarianCSV()
 
 
-def loanAvailabilityCheck(ISBN, author, title):
-    copiesCount = 0
-    copies = 0
-    for book in BookItem.BookItem.readFromBookItemCSV():
-        if author == book.author and title == book.title:
-            copies = int(book.copies)
-
-    for loanItem in readFromLoanItemCSV():
-        if ISBN == loanItem.ISBN:
-            copiesCount += 1
-
-    if copies - copiesCount > 0:
-        return True
-    else:
-        return False
-
-
 def readFromBookJSON():
     bookList = []
 
@@ -51,6 +34,7 @@ def readFromBookJSON():
 
     return bookList
 
+
 def readFromBookItemCSV():
     bookItemList = []
 
@@ -61,6 +45,8 @@ def readFromBookItemCSV():
             bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
 
     return bookItemList
+
+
 def BookList():
     with open("BookDatabase.json", "r") as read_file:
         data = json.load(read_file)
@@ -110,13 +96,16 @@ def checkUsername(username, password):
         if username == a and password == b:
             CURRENTUSER = user.number
             return
+
     if username == "admin" and password == "admin123":
         person = Librarian.Librarian(int(userList[-1].number) + 1, "admin", "admin",
                                      "admin", "admin", "admin", "admin", "admin".lower(), "admin123",
                                      "admin")
         person.writeToDatabase()
-        CURRENTUSER = int(userList[-1].number) + 1
+        CURRENTUSER = person.number
+        print("Pleas restart program")
         return
+
     if CURRENTUSER == 0:
         print("[Login] wrong username or password, please try again!")
         login()
@@ -213,59 +202,6 @@ def register():
     setup()
 
 
-def addBook():
-    print("[Book] Add a Book by filing in the information.")
-    author = input("[Book] Author: ")
-    country = input("[Book] Country: ")
-    imageLink = input("[Book] ImageLink: ")
-    language = input("[Book] Language: ")
-    link = input("[Book] Link: ")
-
-    while True:
-        try:
-            pages = int(input("[Book] Pages: "))
-        except ValueError:
-            print("[Book] Invalid number, please try again.")
-        else:
-            break
-
-    title = input("[Book] Title: ")
-
-    while True:
-        try:
-            year = int(input("[Book] Year: "))
-        except ValueError:
-            print("[Book] Invalid number, please try again.")
-        else:
-            break
-
-    while True:
-        try:
-            ISBN = int(input("[Book] ISBN: "))
-        except ValueError:
-            print("[Book] Invalid number, please try again.")
-        else:
-            break
-
-    while True:
-        try:
-            copies = int(input("[Book] Copies: "))
-        except ValueError:
-            print("[Book] Invalid number, please try again.")
-        else:
-            break
-
-    book = Book.Book(author, country, imageLink, language, link, pages, title, ISBN, year)
-    bookItem = BookItem.BookItem(title, author, copies, ISBN)
-    book.writeToDatabase(book)
-    bookItem.writeToDatabase()
-
-
-def borrowed():
-    global CURRENTUSER
-    LoanItem.loanedToPerson(CURRENTUSER)
-
-
 def login():
     username = input("[Login] Please login with your username: ")
     password = input("please use your password: ")
@@ -310,8 +246,51 @@ def mainMenu():
             bookItemSearch(input("give ISBN, Title or author"))
 
         elif option == "3" and librarianCheck(CURRENTUSER):
-            a = BookItem.BookItem(input("input title"), input("input author"), input("input copies"), input("ISBN"))
-            a.writeToDatabase()
+            print("[Book] Add a Book by filing in the information.")
+            author = input("[Book] Author: ")
+            country = input("[Book] Country: ")
+            imageLink = input("[Book] ImageLink: ")
+            language = input("[Book] Language: ")
+            link = input("[Book] Link: ")
+
+            while True:
+                try:
+                    pages = int(input("[Book] Pages: "))
+                except ValueError:
+                    print("[Book] Invalid number, please try again.")
+                else:
+                    break
+
+            title = input("[Book] Title: ")
+
+            while True:
+                try:
+                    year = int(input("[Book] Year: "))
+                except ValueError:
+                    print("[Book] Invalid number, please try again.")
+                else:
+                    break
+
+            while True:
+                try:
+                    ISBN = int(input("[Book] ISBN: "))
+                except ValueError:
+                    print("[Book] Invalid number, please try again.")
+                else:
+                    break
+
+            while True:
+                try:
+                    copies = int(input("[Book] Copies: "))
+                except ValueError:
+                    print("[Book] Invalid number, please try again.")
+                else:
+                    break
+
+            book = Book.Book(author, country, imageLink, language, link, pages, title, ISBN, year)
+            bookItem = BookItem.BookItem(title, author, copies, ISBN)
+            book.writeToDatabase(book)
+            bookItem.writeToDatabase()
         elif option == "4" and librarianCheck(CURRENTUSER):
             print(readFromBookJSON())
 
