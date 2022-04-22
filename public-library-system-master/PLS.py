@@ -147,6 +147,20 @@ def userlist():
                 print(a)
 
 
+def bookItemSearch(value):
+    bookItemList = []
+
+    with open("BookItemDatabase.csv", mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+
+        for r in csv_reader:
+            bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
+
+    for i in bookItemList:
+        if value == i.ISBN or value == i.title or value == i.author:
+            print(i.__repr__())
+
+
 def printBookItems():
     global bookItemList
     for j in bookItemList:
@@ -157,13 +171,6 @@ def printBooks():
     global bookList
     for j in bookList:
         print(j)
-
-
-def editUser(id):
-    global userList
-
-    Person.editPerson(id)
-    print("user Edited")
 
 
 def register():
@@ -250,15 +257,6 @@ def borrowed():
     LoanItem.loanedToPerson(CURRENTUSER)
 
 
-def deleteBookItem():
-    a = input("give ISBN of book please")
-    deleteBookItem(a)
-
-
-def editBookItem(ID):
-    BookItem.editBookItem(ID)
-
-
 def login():
     username = input("[Login] Please login with your username: ")
     password = input("please use your password: ")
@@ -273,17 +271,17 @@ def mainMenu():
             print("[Menu] 2. Search book item")
             print("[Menu] 3. Add book")
             print("[Menu] 4. book list")
-            print("[Menu] 6. user list")
-            print("[Menu] 7. Delete a user")
-            print("[Menu] 8. Register new user")
-            print("[Menu] 9. Logout")
-            print("[Menu] 10. Make backup")
-            print("[Menu] 11. Restore backup")
-            print("[Menu] 12. Edit user")
-            print("[Menu] 13. Edit book")
-            print("[Menu] 14. Edit book item")
-            print("[Menu] 15. Delete book item")
-            print("[Menu] 16. Delete book ")
+            print("[Menu] 5. user list")
+            print("[Menu] 6. Delete a user")
+            print("[Menu] 7. Register new user")
+            print("[Menu] 8. Logout")
+            print("[Menu] 9. Make backup")
+            print("[Menu] 10. Restore backup")
+            print("[Menu] 11. Edit user")
+            print("[Menu] 12. Edit book")
+            print("[Menu] 13. Edit book item")
+            print("[Menu] 14. Delete book item")
+            print("[Menu] 15. Delete book ")
 
         elif SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
@@ -299,55 +297,53 @@ def mainMenu():
 
 
         elif option == "2" and librarianCheck(CURRENTUSER):
-            BookItem.bookItemSearch(input("give ISBN, Title or author"))
+            bookItemSearch(input("give ISBN, Title or author"))
 
         elif option == "3" and librarianCheck(CURRENTUSER):
-            addBook()
-
+            a = BookItem.BookItem(input("input title"), input("input author"), input("input copies"), input("ISBN"))
+            a.writeToDatabase()
         elif option == "4" and librarianCheck(CURRENTUSER):
             print(readFromBookJSON())
 
+
         elif option == "5" and librarianCheck(CURRENTUSER):
-            a = BookItem.BookItem(input("input title"), input("input author"), input("input copies"), input("ISBN"))
-            BookItem.writeToBookItemCSV(a)
-        elif option == "6" and librarianCheck(CURRENTUSER):
             userlist()
-        elif option == "7" and librarianCheck(CURRENTUSER):
+        elif option == "6" and librarianCheck(CURRENTUSER):
             c = input("give the number of use you want to user: ")
 
             if librarianCheck(c):
                 a = Librarian.Librarian(c, "none", "none", "none", "none",
-                                  "none", "none", "none", "none", "none")
+                                        "none", "none", "none", "none", "none")
             else:
                 a = Subscriber.Subscriber(c, "none", "none", "none", "none",
-                                        "none", "none", "none", "none", "none")
+                                          "none", "none", "none", "none", "none")
             a.delete()
-        elif option == "8" and librarianCheck(CURRENTUSER):
+        elif option == "7" and librarianCheck(CURRENTUSER):
             register()
-        elif option == "9" and librarianCheck(CURRENTUSER):
+        elif option == "8" and librarianCheck(CURRENTUSER):
             setup()
             CURRENTUSER = 0
             login()
-        elif option == "10" and librarianCheck(CURRENTUSER):
+        elif option == "9" and librarianCheck(CURRENTUSER):
             Backup.backupMake()
-        elif option == "11" and librarianCheck(CURRENTUSER):
+        elif option == "10" and librarianCheck(CURRENTUSER):
             Backup.backupRestoreMenu()
-        elif option == "12" and librarianCheck(CURRENTUSER):
+        elif option == "11" and librarianCheck(CURRENTUSER):
             a = Person.Person(input("give the number of use you want to edit: "), "none", "none", "none", "none",
-                              "none", "none","none", "none", "none")
+                              "none", "none", "none", "none", "none")
             a.editPerson()
 
-        elif option == "13" and librarianCheck(CURRENTUSER):
+        elif option == "12" and librarianCheck(CURRENTUSER):
             a = Book.Book("none", "none", "none", "none", "none", "none", "none",
                           input("give the ISBN of book you want to edit: "), "none")
             a.editBook()
-        elif option == "14" and librarianCheck(CURRENTUSER):
+        elif option == "13" and librarianCheck(CURRENTUSER):
             a = BookItem.BookItem("none", "none", "none", input("give the ISBN of bookitem you want to edit: "))
             a.editBookItem()
-        elif option == "15" and librarianCheck(CURRENTUSER):
+        elif option == "14" and librarianCheck(CURRENTUSER):
             a = BookItem.BookItem("none", "none", "none", input("give the ISBN of bookitem you want to delete: "))
             a.deleteBookItem()
-        elif option == "16" and librarianCheck(CURRENTUSER):
+        elif option == "15" and librarianCheck(CURRENTUSER):
             a = Book.Book("none", "none", "none", "none", "none", "none", "none",
                           input("give the ISBN of book you want to delete: "), "none")
             a.deleteBook()

@@ -38,7 +38,7 @@ class Librarian(Person):
                 else:
                     tmp.append(r.__repr__())
             print(tmp)
-            tmp.pop(-1)
+
             writer.writerows(tmp)
 
         numberlist = []

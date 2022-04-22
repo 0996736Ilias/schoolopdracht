@@ -86,8 +86,3 @@ def readFromBookItemCSV():
     return bookItemList
 
 
-def bookItemSearch(value):
-    list = readFromBookItemCSV()
-    for i in list:
-        if value == i.ISBN or value == i.title or value == i.author:
-            print(i)
