@@ -22,7 +22,7 @@ class Book():
 
     def __repr__(self):
         return self.author + ", " + self.country + ", " + self.imageLink + ", " + self.language + ", " + str(
-            self.link) + ", " + str(self.pages) + ", " + self.title + ", " + str(self.year)
+            self.link) + ", " + str(self.pages) + ", " + self.title + ", " + str(self.ISBN) + ", " + str(self.year) + "\n"
 
     def writeToDatabase(self):
         with open('BookDatabase.json') as json_file:

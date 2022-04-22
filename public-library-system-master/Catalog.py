@@ -98,7 +98,6 @@ class Catalog():
             self.searchBook(CURRENTUSER)
 
         for criteria in searchKeywords:
-            print(bookList)
             for i in bookList:
                 if criteria.lower() in i.title.lower() and "title" in searchInputArray:
                     self.foundBooks.append(i)

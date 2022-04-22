@@ -138,11 +138,7 @@ def SubscriberCheck(number):
 def userlist():
     global subscriberList, userList
     for j in userList:
-        a = getattr(j, "username")
-        for Number in subscriberList:
-            b = getattr(j, "number")
-            if Number == b:
-                print(a)
+        print(j.__repr__())
 
 
 def bookItemSearch(value):
@@ -155,7 +151,7 @@ def bookItemSearch(value):
             bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
 
     for i in bookItemList:
-        if value == i.ISBN or value == i.title or value == i.author:
+        if value.lower() == i.ISBN.lower() or value.lower() == i.title.lower() or value.lower() == i.author.lower():
             print(i.__repr__())
 
 
@@ -234,7 +230,7 @@ def mainMenu():
             print("[Menu] 2. Logout")
             print("[Menu] 3. Book list")
             print("[Menu] 4. return book")
-            print("[Menu] 5. Edit current user")
+
 
         option = input("[Menu]\n[Menu] Choice: ")
         if option == "1":
@@ -289,7 +285,7 @@ def mainMenu():
 
             book = Book.Book(author, country, imageLink, language, link, pages, title, ISBN, year)
             bookItem = BookItem.BookItem(title, author, copies, ISBN)
-            book.writeToDatabase(book)
+            book.writeToDatabase()
             bookItem.writeToDatabase()
         elif option == "4" and librarianCheck(CURRENTUSER):
             print(readFromBookJSON())
@@ -351,22 +347,6 @@ def mainMenu():
         elif option == "4" and SubscriberCheck(CURRENTUSER):
             a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
             a.returnItem(CURRENTUSER)
-
-        elif option == "5" and SubscriberCheck(CURRENTUSER):
-            awnser = input("are you sure you want to delete this user [y/n]")
-            if awnser == "y":
-                Person.deletePerson(CURRENTUSER)
-                print("user deleted")
-                setup()
-                CURRENTUSER = 0
-                login()
-            elif awnser == "n":
-                mainMenu()
-            else:
-                print("invalid argument")
-        elif option == "6" and SubscriberCheck(CURRENTUSER):
-            userlist()
-
         else:
             print("[Menu] Invalid input. Please try again.")
 
