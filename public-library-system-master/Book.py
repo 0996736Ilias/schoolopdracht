@@ -72,7 +72,7 @@ class Book():
                     print("[Book]")
                     break
                 if userInput == "n":
-                    break
+                    return
                 print("[Book] Invalid input, please try again. ")
         else:
             input("[Book] No book available, press any key to go back!")
@@ -83,12 +83,12 @@ class Book():
             if bookItem.author == self.author and bookItem.title == self.title:
                 return bookItem.ISBN
 
-    def deleteBook(self, ISBN):
+    def deleteBook(self):
         new_list = []
         with open("BookDatabase.json", mode='r', newline='') as read_file:
             tmp = json.load(read_file)
             for r in tmp:
-                if ISBN == r.ISBN:
+                if self.ISBN == r['ISBN']:
                     print("skip")
                 else:
                     new_list.append(r)
@@ -97,20 +97,21 @@ class Book():
         with open("BookDatabase.json", mode='w', newline='') as read_file:
             json.dump(new_list, read_file, indent=4)
 
-    def editBook(self, ISBN):
+
+    def editBook(self):
         new_list = []
         with open("BookDatabase.json", mode='r', newline='') as read_file:
             tmp = json.load(read_file)
             for r in tmp:
-                if ISBN == r["ISBN"]:
+                if self.ISBN == r['ISBN']:
                     r["author"] = input("new author ")
                     r["country"] = input("new country ")
                     r["imageLink"] = input("new imageLink ")
                     r["language"] = input("new language")
                     r["link"] = input("new link")
-                    r["pages"] = input("new pages")
+                    r["pages"] = int(input("new pages"))
                     r["title"] = input("new title")
-                    r["year"] = input("new year")
+                    r["year"] = int(input("new year"))
                     new_list.append(r)
                 else:
                     new_list.append(r)
@@ -133,7 +134,7 @@ def readFromBookJSON():
         bookList.append(
             Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
                       row["title"], row["ISBN"], row["year"]))
-
+    return bookList
 
 
 
