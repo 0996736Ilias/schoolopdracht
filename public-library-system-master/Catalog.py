@@ -1,14 +1,24 @@
 import Book
-
+import json
 
 class Catalog():
     """This is a catalog class"""
 
     def __init__(self):
         self.foundBooks = []
-        self.bookList = Book.readFromBookJSON()
+        self.bookList = self.readFromBookJSON()
 
-    def chooseLoanBook(self):
+    def readFromBookJSON(self):
+        bookList = []
+
+        with open("BookDatabase.json", "r") as read_file:
+            data = json.load(read_file)
+
+        for row in data:
+            bookList.append(Book.Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
+                     row["title"], row["ISBN"], row["year"]))
+        return bookList
+    def chooseLoanBook(self,CURRENTUSER):
         print("[Catalog]")
         iteration = 1
         for book in self.foundBooks:
@@ -32,11 +42,11 @@ class Catalog():
                     print("[Catalog] Invalid number, please try again.")
 
             print("[Catalog]")
-            self.foundBooks[chosenBook - 1].showBook()
+            self.foundBooks[chosenBook - 1].showBook(CURRENTUSER)
 
-    def searchBook(self):
+    def searchBook(self, CURRENTUSER ):
         inCatalog = True
-        bookList = Book.readFromBookJSON()
+        bookList = self.readFromBookJSON()
         searchKeywords = []
         searchInputArray = ""
         validInput = False
@@ -45,7 +55,7 @@ class Catalog():
         searchInput = input("[Catalog] >>> ")
 
         if "none" in searchInput.lower():
-            self.chooseLoanBook()
+            self.chooseLoanBook(CURRENTUSER)
             iteration = 1
             for book in bookList:
                 print("[Catalog] " + str(iteration) + " - " + book.title)
@@ -65,7 +75,7 @@ class Catalog():
                         print("[Catalog] Invalid number, please try again.")
 
             print("[Catalog]")
-            self.bookList[chosenBook - 1].showBook()
+            self.bookList[chosenBook - 1].showBook(CURRENTUSER)
             inCatalog = False
 
         if "title" in searchInput.lower():
@@ -85,7 +95,7 @@ class Catalog():
 
         if not validInput and inCatalog:
             print("[Catalog]\n[Catalog] Invalid input, please try again.\n[Catalog]")
-            self.searchBook()
+            self.searchBook(CURRENTUSER)
 
         for criteria in searchKeywords:
             print(bookList)
@@ -98,4 +108,4 @@ class Catalog():
                     self.foundBooks.append(i)
             break
         if inCatalog:
-            self.chooseLoanBook()
+            self.chooseLoanBook(CURRENTUSER)

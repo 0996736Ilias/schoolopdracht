@@ -1,6 +1,7 @@
 import json
 import BookItem
 import LoanItem
+
 CURRENTUSER = 0
 
 
@@ -46,7 +47,7 @@ class Book():
         with open("BookDatabase.json", 'w', ) as f:
             json.dump(data, f, indent=4)
 
-    def showBook(self):
+    def showBook(self, CURRENTUSER):
         print("[Book] Author: " + self.author)
         print("[Book] Country: " + self.country)
         print("[Book] Image Link: " + self.imageLink)
@@ -62,8 +63,7 @@ class Book():
                 print("[Book]")
                 userInput = input("[Book] Would you like loan this book (y/n): ")
                 if userInput == "y":
-                    CURRENTUSER = input("give id of use that wants to borrow book")
-                    if LoanItem.limitCheck(CURRENTUSER) == False:
+                    if LoanItem.LoanItem.limitCheck(CURRENTUSER) == False:
                         print("user already has 3 books")
                         break
                     loanItem = LoanItem.LoanItem(CURRENTUSER, 30, self.findISBN())
@@ -78,7 +78,7 @@ class Book():
             input("[Book] No book available, press any key to go back!")
 
     def findISBN(self):
-        bookItemList = BookItem.readFromBookItemCSV()
+        bookItemList = BookItem.BookItem.readFromBookItemCSV()
         for bookItem in bookItemList:
             if bookItem.author == self.author and bookItem.title == self.title:
                 return bookItem.ISBN
@@ -96,7 +96,6 @@ class Book():
         print(new_list)
         with open("BookDatabase.json", mode='w', newline='') as read_file:
             json.dump(new_list, read_file, indent=4)
-
 
     def editBook(self):
         new_list = []
@@ -119,30 +118,3 @@ class Book():
         print(new_list)
         with open("BookDatabase.json", mode='w', newline='') as read_file:
             json.dump(new_list, read_file, indent=4)
-
-
-
-
-
-def readFromBookJSON():
-    bookList = []
-
-    with open("BookDatabase.json", "r") as read_file:
-        data = json.load(read_file)
-
-    for row in data:
-        bookList.append(
-            Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
-                      row["title"], row["ISBN"], row["year"]))
-    return bookList
-
-
-
-
-
-
-
-
-
-
-

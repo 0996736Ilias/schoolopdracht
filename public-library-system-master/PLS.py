@@ -17,14 +17,14 @@ def setup():
     userList = readFromPersonCSV()
     bookList = readFromBookJSON()
     subscriberList = readFromSubscriberCSV()
-    bookItemList = BookItem.readFromBookItemCSV()
+    bookItemList = readFromBookItemCSV()
     librarianList = readFromLibrarianCSV()
 
 
 def loanAvailabilityCheck(ISBN, author, title):
     copiesCount = 0
     copies = 0
-    for book in BookItem.readFromBookItemCSV():
+    for book in BookItem.BookItem.readFromBookItemCSV():
         if author == book.author and title == book.title:
             copies = int(book.copies)
 
@@ -51,7 +51,16 @@ def readFromBookJSON():
 
     return bookList
 
+def readFromBookItemCSV():
+    bookItemList = []
 
+    with open("BookItemDatabase.csv", mode='r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+
+        for r in csv_reader:
+            bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
+
+    return bookItemList
 def BookList():
     with open("BookDatabase.json", "r") as read_file:
         data = json.load(read_file)
@@ -282,18 +291,19 @@ def mainMenu():
             print("[Menu] 13. Edit book item")
             print("[Menu] 14. Delete book item")
             print("[Menu] 15. Delete book ")
+            print("[Menu] 16. return book ")
 
         elif SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
             print("[Menu] 2. Logout")
-            print("[Menu] 3. Delete user user")
+            print("[Menu] 3. Book list")
             print("[Menu] 4. return book")
             print("[Menu] 5. Edit current user")
 
         option = input("[Menu]\n[Menu] Choice: ")
         if option == "1":
             catalog = Catalog.Catalog()
-            catalog.searchBook()
+            catalog.searchBook(CURRENTUSER)
 
 
         elif option == "2" and librarianCheck(CURRENTUSER):
@@ -347,6 +357,9 @@ def mainMenu():
             a = Book.Book("none", "none", "none", "none", "none", "none", "none",
                           input("give the ISBN of book you want to delete: "), "none")
             a.deleteBook()
+        elif option == "16" and librarianCheck(CURRENTUSER):
+            a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
+            a.returnItem(input("give number of user from who the book is"))
 
 
 
@@ -355,9 +368,10 @@ def mainMenu():
             CURRENTUSER = 0
             login()
         elif option == "3" and SubscriberCheck(CURRENTUSER):
-            LoanItem.LoanItem.returnItem(input("give ISBN of book you want to return"))
+            print(readFromBookJSON())
         elif option == "4" and SubscriberCheck(CURRENTUSER):
-            bookList()
+            a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
+            a.returnItem(CURRENTUSER)
 
         elif option == "5" and SubscriberCheck(CURRENTUSER):
             awnser = input("are you sure you want to delete this user [y/n]")
