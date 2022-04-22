@@ -8,6 +8,7 @@ import LoanItem
 import Catalog
 import csv
 import json
+
 CURRENTUSER = 0
 
 
@@ -18,6 +19,10 @@ def setup():
     subscriberList = readFromSubscriberCSV()
     bookItemList = BookItem.readFromBookItemCSV()
     librarianList = readFromLibrarianCSV()
+    person = Librarian.Librarian(int(userList[-1].number) + 1, "admin", "admin",
+                                 "admin", "admin", "admin", "admin", "admin".lower(), "admin123",
+                                 "admin")
+    person.writeToDatabase()
 
 
 def loanAvailabilityCheck(ISBN, author, title):
@@ -37,13 +42,34 @@ def loanAvailabilityCheck(ISBN, author, title):
         return False
 
 
+def readFromBookJSON():
+    bookList = []
+
+    with open("BookDatabase.json", "r") as read_file:
+        data = json.load(read_file)
+
+    for row in data:
+        bookList.append(
+            Book.Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
+                      row["title"], row["ISBN"], row["year"]))
+
+    return bookList
+
+
+def BookList():
+    with open("BookDatabase.json", "r") as read_file:
+        data = json.load(read_file)
+    for i in read_file:
+        print(i)
+
+
 def readFromLoanItemCSV():
     loanItemList = []
 
     with open("loanAdministrationDatabase.csv", mode='r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for r in csv_reader:
-            loanItemList.append(LoanItem(r[0], r[1], r[2]))
+            loanItemList.append(LoanItem.LoanItem(r[0], r[1], r[2]))
     return loanItemList
 
 
@@ -54,20 +80,6 @@ def readFromPersonCSV():
         for r in csv_reader:
             List.append(Person.Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
     return List
-
-
-def readFromBookJSON():
-    bookList = []
-
-    with open("BookDatabase.json", "r") as read_file:
-        data = json.load(read_file)
-
-    for row in data:
-        bookList.append(
-            Book(row["author"], row["country"], row["imageLink"], row["language"],
-                 row["link"], row["pages"], row["title"], row["ISBN"], row["year"]))
-
-    return bookList
 
 
 def readFromSubscriberCSV():
@@ -89,12 +101,9 @@ def checkUsername(username, password):
 
         a = getattr(user, "username")
         b = getattr(user, "password")
-        if username == "admin" and password == "admin123":
-            CURRENTUSER = user.number
-            Book.setCurrentUses(CURRENTUSER)
+
         if username == a and password == b:
             CURRENTUSER = user.number
-            Book.setCurrentUses(CURRENTUSER)
 
     if CURRENTUSER == 0:
         print("[Login] wrong username or password, please try again!")
@@ -177,9 +186,9 @@ def register():
                                      streetAddress, zipCode, city, emailAddress, userName.lower(), password,
                                      telephoneNumber)
     if personType == "Subscriber":
-        person = Librarian.Librarian(number, givenName, surname,
-                                     streetAddress, zipCode, city, emailAddress, userName.lower(), password,
-                                     telephoneNumber)
+        person = Subscriber.Subscriber(number, givenName, surname,
+                                       streetAddress, zipCode, city, emailAddress, userName.lower(), password,
+                                       telephoneNumber)
     person.writeToDatabase()
     print("[Register]\n[Register] Register Successful\n[Register]")
     setup()
@@ -248,7 +257,7 @@ def editBookItem(ID):
 
 
 def deleteBook():
-    Book.deleteBook("9781234534597")
+    Book.Book.deleteBook("9781234534597")
 
 
 def login():
@@ -260,7 +269,7 @@ def login():
 def mainMenu():
     global CURRENTUSER
     while True:
-        if Librarian.librarianCheck(CURRENTUSER):
+        if librarianCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
             print("[Menu] 2. Search book item")
             print("[Menu] 3. Add book")
@@ -277,7 +286,7 @@ def mainMenu():
             print("[Menu] 15. Delete book item")
             print("[Menu] 16. Delete book ")
 
-        elif Subscriber.SubscriberCheck(CURRENTUSER):
+        elif SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
             print("[Menu] 2. Logout")
             print("[Menu] 3. Delete user user")
@@ -297,7 +306,7 @@ def mainMenu():
             addBook()
 
         elif option == "4" and librarianCheck(CURRENTUSER):
-            Book.bookList()
+            print(readFromBookJSON())
 
         elif option == "5" and librarianCheck(CURRENTUSER):
             a = BookItem.BookItem(input("input title"), input("input author"), input("input copies"), input("ISBN"))
@@ -305,7 +314,7 @@ def mainMenu():
         elif option == "6" and librarianCheck(CURRENTUSER):
             userlist()
         elif option == "7" and librarianCheck(CURRENTUSER):
-            Person.deletePerson(input("give user number to delete"))
+            Person.Person(input("give user number to delete"))
         elif option == "8" and librarianCheck(CURRENTUSER):
             register()
         elif option == "9" and librarianCheck(CURRENTUSER):
@@ -319,16 +328,16 @@ def mainMenu():
         elif option == "12" and librarianCheck(CURRENTUSER):
             Person.editPerson(input("give the number of use you want to edit: "))
         elif option == "13" and librarianCheck(CURRENTUSER):
-            Book.editBook(input("give the ISBN of Book you want to edit: "))
+            Book.Book.editBook(input("give the ISBN of Book you want to edit: "))
         elif option == "14" and librarianCheck(CURRENTUSER):
             BookItem.editBookItem(input("give the ISBN of book item you want to edit: "))
         elif option == "15" and librarianCheck(CURRENTUSER):
             BookItem.deleteBookItem(input("give the ISBN of book item you want to delete: "))
 
         elif option == "3" and librarianCheck(CURRENTUSER):
-            LoanItem.returnItem(input("give ISBN of book you want to return"))
+            LoanItem.LoanItem.returnItem(input("give ISBN of book you want to return"))
         elif option == "4" and SubscriberCheck(CURRENTUSER):
-            Book.bookList()
+            bookList()
 
         elif option == "5" and SubscriberCheck(CURRENTUSER):
             awnser = input("are you sure you want to delete this user [y/n]")

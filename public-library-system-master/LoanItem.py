@@ -20,25 +20,42 @@ class LoanItem():
             contentList = [self.subscribernumber, self.days, self.ISBN]
             csv_writer.writerow(contentList)
 
+    def returnItem(self, ISBN):
+        a = 0
+        list = readFromLoanItemCSV()
+        with open(loanItemCSV, mode='r+', newline='') as csv_file:
+            tmp = []
+
+            writer = csv.writer(csv_file)
+            for r in list:
+                if ISBN == r.ISBN and a == 0:
+                    a = a + 1
+                    print("[LoanItem] SKIP")
+                else:
+                    tmp.append(r.__repr__())
+            print(tmp)
+            tmp.pop(-1)
+            writer.writerows(tmp)
+
+    def loanAvailabilityCheck(ISBN, author, title):
+
+        copiesCount = 0
+        copies = 0
+        for book in BookItem.readFromBookItemCSV():
+            if author == book.author and title == book.title:
+                copies = int(book.copies)
+
+        for loanItem in readFromLoanItemCSV():
+            if ISBN == loanItem.ISBN:
+                copiesCount += 1
+
+        if copies - copiesCount > 0:
+            return True
+        else:
+            return False
 
 
 
-def returnItem(ISBN):
-    a = 0
-    list = readFromLoanItemCSV()
-    with open(loanItemCSV, mode='r+', newline='') as csv_file:
-        tmp = []
-
-        writer = csv.writer(csv_file)
-        for r in list:
-            if ISBN == r.ISBN and a == 0:
-                a = a + 1
-                print("[LoanItem] SKIP")
-            else:
-                tmp.append(r.__repr__())
-        print(tmp)
-        tmp.pop(-1)
-        writer.writerows(tmp)
 
 
 

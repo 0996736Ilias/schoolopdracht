@@ -11,7 +11,7 @@ class Librarian(Person):
                         self.streetAddress, self.zipCode, self.city, self.emailAddress, self.username, self.password,
                         self.telephonenumber]
 
-        with open("PersonDatabase.csv", 'a+', newline='') as write_obj:
+        with open("PersonDatabase.csv", 'a', newline='') as write_obj:
             # Create a writer object from csv module
             csv_writer = csv.writer(write_obj)
             # Add contents of list as last row in the csv file

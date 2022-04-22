@@ -1,6 +1,4 @@
-
 import Book
-
 
 
 class Catalog():
@@ -90,13 +88,14 @@ class Catalog():
             self.searchBook()
 
         for criteria in searchKeywords:
-            for book in bookList:
-                if criteria.lower() in book.title.lower() and "title" in searchInputArray:
-                    self.foundBooks.append(book)
-                if criteria.lower() in book.author.lower() and "author" in searchInputArray:
-                    self.foundBooks.append(book)
-                if criteria.lower() in book.country.lower() and "country" in searchInputArray:
-                    self.foundBooks.append(book)
+            print(bookList)
+            for i in bookList:
+                if criteria.lower() in i.title.lower() and "title" in searchInputArray:
+                    self.foundBooks.append(i)
+                if criteria.lower() in i.author.lower() and "author" in searchInputArray:
+                    self.foundBooks.append(i)
+                if criteria.lower() in i.country.lower() and "country" in searchInputArray:
+                    self.foundBooks.append(i)
             break
         if inCatalog:
             self.chooseLoanBook()

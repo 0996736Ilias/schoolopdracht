@@ -57,13 +57,14 @@ class Book():
         print("[Book] Title: " + self.title)
         print("[Book] Year: " + str(self.year))
 
-        if LoanItem.loanAvailabilityCheck(self.findISBN(), self.author, self.title):
+        if LoanItem.LoanItem.loanAvailabilityCheck(self.findISBN(), self.author, self.title):
             while True:
                 print("[Book]")
                 userInput = input("[Book] Would you like loan this book (y/n): ")
                 if userInput == "y":
+                    CURRENTUSER = input("give id of use that wants to borrow book")
                     if LoanItem.limitCheck(CURRENTUSER) == False:
-                        print("you already have 3 books")
+                        print("user already has 3 books")
                         break
                     loanItem = LoanItem.LoanItem(CURRENTUSER, 30, self.findISBN())
                     loanItem.writeToDatabase()
@@ -73,8 +74,8 @@ class Book():
                 if userInput == "n":
                     break
                 print("[Book] Invalid input, please try again. ")
-            else:
-                input("[Book] No book available, press any key to go back!")
+        else:
+            input("[Book] No book available, press any key to go back!")
 
     def findISBN(self):
         bookItemList = BookItem.readFromBookItemCSV()
@@ -118,22 +119,25 @@ class Book():
         with open("BookDatabase.json", mode='w', newline='') as read_file:
             json.dump(new_list, read_file, indent=4)
 
-def setCurrentUses(usernumber):
-    global CURRENTUSER
-    CURRENTUSER = usernumber
 
 
 
 
+def readFromBookJSON():
+    bookList = []
 
-
-
-
-def readFromJSONReturnJSON():
     with open("BookDatabase.json", "r") as read_file:
         data = json.load(read_file)
 
-    return data
+    for row in data:
+        bookList.append(
+            Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
+                      row["title"], row["ISBN"], row["year"]))
+
+
+
+
+
 
 
 

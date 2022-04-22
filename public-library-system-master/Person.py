@@ -34,12 +34,6 @@ class Person(object):
             # Add contents of list as last row in the csv file
             csv_writer.writerow(row_contents)
 
-    def bookList(self):
-        with open("BookDatabase.json", "r") as read_file:
-            data = json.load(read_file)
-
-        for row in data:
-            print(row)
 
 
 
