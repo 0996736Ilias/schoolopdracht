@@ -224,13 +224,13 @@ def mainMenu():
             print("[Menu] 14. Delete book item")
             print("[Menu] 15. Delete book ")
             print("[Menu] 16. return book ")
-
+            print("[Menu] 17. exit ")
         elif SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
             print("[Menu] 2. Logout")
             print("[Menu] 3. Book list")
             print("[Menu] 4. return book")
-
+            print("[Menu] 5. exit ")
 
         option = input("[Menu]\n[Menu] Choice: ")
         if option == "1":
@@ -294,7 +294,7 @@ def mainMenu():
         elif option == "5" and librarianCheck(CURRENTUSER):
             userlist()
         elif option == "6" and librarianCheck(CURRENTUSER):
-            c = input("give the number of use you want to user: ")
+            c = input("give the number of user you want to use: ")
 
             if librarianCheck(c):
                 a = Librarian.Librarian(c, "none", "none", "none", "none",
@@ -335,8 +335,8 @@ def mainMenu():
         elif option == "16" and librarianCheck(CURRENTUSER):
             a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
             a.returnItem(input("give number of user from who the book is"))
-
-
+        elif option == "17" and librarianCheck(CURRENTUSER):
+            exit()
 
         elif option == "2" and SubscriberCheck(CURRENTUSER):
             setup()
@@ -347,6 +347,8 @@ def mainMenu():
         elif option == "4" and SubscriberCheck(CURRENTUSER):
             a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
             a.returnItem(CURRENTUSER)
+        elif option == "5" and SubscriberCheck(CURRENTUSER):
+            exit()
         else:
             print("[Menu] Invalid input. Please try again.")
 
