@@ -2,11 +2,24 @@ import csv
 import json
 import Book
 from Person import Person
+from BookItem import BookItem
 
 
 class Librarian(Person):
     """This is a Librarian class"""
+    def userlist(self):
+        with open("PersonDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            List = []
+            for r in csv_reader:
+                List.append(Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
 
+        for j in List:
+            print(j.__repr__())
+    def editPerson(self):
+        a = Person(input("give the number of use you want to edit: "), "none", "none", "none", "none",
+                          "none", "none", "none", "none", "none")
+        a.editPerson()
     def writeToDatabase(self):
         row_contents = [self.number, self.givenName, self.surname,
                         self.streetAddress, self.zipCode, self.city, self.emailAddress, self.username, self.password,
@@ -73,12 +86,27 @@ class Librarian(Person):
         for j in bookList:
             print(j)
 
-    def userlist(self):
-        with open("PersonDatabase.csv", mode='r') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            List = []
-            for r in csv_reader:
-                List.append(Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
+    def printBookItems(self):
+        bookItemList = []
 
-        for j in List:
-            print(j.__repr__())
+        with open("BookItemDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+
+            for r in csv_reader:
+                bookItemList.append(BookItem(r[0], r[1], r[2], r[3]))
+                print(r)
+
+    def bookItemSearch(self):
+        bookItemList = []
+        value = input("give an ISBN, Title or Author")
+        with open("BookItemDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+
+            for r in csv_reader:
+                bookItemList.append(BookItem(r[0], r[1], r[2], r[3]))
+
+        for i in bookItemList:
+            if value.lower() == i.ISBN.lower() or value.lower() == i.title.lower() or value.lower() == i.author.lower():
+                print(i.__repr__())
+
+

@@ -128,26 +128,6 @@ def SubscriberCheck(number):
         return True
 
 
-def bookItemSearch(value):
-    bookItemList = []
-
-    with open("BookItemDatabase.csv", mode='r') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-
-        for r in csv_reader:
-            bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
-
-    for i in bookItemList:
-        if value.lower() == i.ISBN.lower() or value.lower() == i.title.lower() or value.lower() == i.author.lower():
-            print(i.__repr__())
-
-
-def printBookItems():
-    global bookItemList
-    for j in bookItemList:
-        print(j)
-
-
 def register():
     number = int(userList[-1].number) + 1
     print("[Register] Register a person by filling in the information.")
@@ -205,7 +185,8 @@ def mainMenu():
             print("[Menu] 14. Delete book item")
             print("[Menu] 15. Delete book ")
             print("[Menu] 16. return book ")
-            print("[Menu] 17. exit ")
+            print("[Menu] 17. book item list ")
+            print("[Menu] 18. exit ")
         elif SubscriberCheck(CURRENTUSER):
             print("[Menu] 1. Search book")
             print("[Menu] 2. Logout")
@@ -273,7 +254,6 @@ def mainMenu():
             a = Librarian.Librarian("none", "none", "none", "none", "none",
                                     "none", "none", "none", "none", "none")
             a.printBooks()
-
         elif option == "5" and librarianCheck(CURRENTUSER):
             a = Librarian.Librarian("none", "none", "none", "none", "none",
                                     "none", "none", "none", "none", "none")
@@ -321,6 +301,10 @@ def mainMenu():
             a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
             a.returnItem(input("give number of user from who the book is"))
         elif option == "17" and librarianCheck(CURRENTUSER):
+            a = Librarian.Librarian("none", "none", "none", "none", "none",
+                                    "none", "none", "none", "none", "none")
+            a.bookItemSearch()
+        elif option == "18" and librarianCheck(CURRENTUSER):
             exit()
 
         elif option == "2" and SubscriberCheck(CURRENTUSER):
