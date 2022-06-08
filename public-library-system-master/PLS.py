@@ -47,13 +47,6 @@ def readFromBookItemCSV():
     return bookItemList
 
 
-def BookList():
-    with open("BookDatabase.json", "r") as read_file:
-        data = json.load(read_file)
-    for i in read_file:
-        print(i)
-
-
 def readFromLoanItemCSV():
     loanItemList = []
 
@@ -135,12 +128,6 @@ def SubscriberCheck(number):
         return True
 
 
-def userlist():
-    global subscriberList, userList
-    for j in userList:
-        print(j.__repr__())
-
-
 def bookItemSearch(value):
     bookItemList = []
 
@@ -158,12 +145,6 @@ def bookItemSearch(value):
 def printBookItems():
     global bookItemList
     for j in bookItemList:
-        print(j)
-
-
-def printBooks():
-    global bookList
-    for j in bookList:
         print(j)
 
 
@@ -288,11 +269,15 @@ def mainMenu():
             book.writeToDatabase()
             bookItem.writeToDatabase()
         elif option == "4" and librarianCheck(CURRENTUSER):
-            print(readFromBookJSON())
 
+            a = Librarian.Librarian("none", "none", "none", "none", "none",
+                                    "none", "none", "none", "none", "none")
+            a.printBooks()
 
         elif option == "5" and librarianCheck(CURRENTUSER):
-            userlist()
+            a = Librarian.Librarian("none", "none", "none", "none", "none",
+                                    "none", "none", "none", "none", "none")
+            a.userlist()
         elif option == "6" and librarianCheck(CURRENTUSER):
             c = input("give the number of user you want to use: ")
 

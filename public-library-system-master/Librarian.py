@@ -1,5 +1,6 @@
 import csv
 import json
+import Book
 from Person import Person
 
 
@@ -59,5 +60,25 @@ class Librarian(Person):
             print(tmp)
             writer.writerows(tmp)
 
+    def printBooks(self):
+        bookList = []
 
+        with open("BookDatabase.json", "r") as read_file:
+            data = json.load(read_file)
 
+        for row in data:
+            bookList.append(
+                Book.Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
+                          row["title"], row["ISBN"], row["year"]))
+        for j in bookList:
+            print(j)
+
+    def userlist(self):
+        with open("PersonDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            List = []
+            for r in csv_reader:
+                List.append(Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
+
+        for j in List:
+            print(j.__repr__())
