@@ -5,20 +5,20 @@ import BookItem
 class LoanItem():
     """This is a LoanItem class"""
 
-    def __init__(self, subscriberNumber, days, ISBN):
-        self.subscribernumber = subscriberNumber
+    def __init__(self, adminNumber, days, ISBN):
+        self.adminnumber = adminNumber
         self.days = days
         self.ISBN = ISBN
 
     def __repr__(self):
-        return str(self.subscribernumber), self.days, self.ISBN
+        return [self.adminnumber, self.days, self.ISBN]
 
     def writeToDatabase(self):
         with open("LoanAdministrationDatabase.csv", 'a', newline='') as write_obj:
             #  Create a writer object from csv module
             csv_writer = csv.writer(write_obj)
             #  Add contents of list as last row in the csv file
-            contentList = [self.subscribernumber, self.days, self.ISBN]
+            contentList = [self.adminnumber, self.days, self.ISBN]
             csv_writer.writerow(contentList)
 
     def returnItem( self, CURRENTUSER):
@@ -29,7 +29,7 @@ class LoanItem():
 
             writer = csv.writer(csv_file)
             for r in list:
-                if self.ISBN == r.ISBN and a == 0 and r.subscribernumber == CURRENTUSER:
+                if self.ISBN == r.ISBN and a == 0 and r.adminnumber == CURRENTUSER:
                     a = a + 1
                     print("[LoanItem] SKIP")
                 else:
@@ -67,7 +67,7 @@ class LoanItem():
         loanedlist = LoanItem.readFromLoanItemCSV()
         catalog = BookItem.BookItem.readFromBookItemCSV()
         for j in loanedlist:
-            if j.subscribernumber == str(ID):
+            if j.adminnumber == str(ID):
                 for i in catalog:
                     if (j.ISBN == i.ISBN):
                         print(i)
@@ -76,7 +76,7 @@ class LoanItem():
         loanedlist = LoanItem.readFromLoanItemCSV()
         a = 0
         for j in loanedlist:
-            if j.subscribernumber == ID:
+            if j.adminnumber == ID:
                 a = a + 1
         if a >= 3:
             return False

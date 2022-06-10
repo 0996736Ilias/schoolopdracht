@@ -5,8 +5,8 @@ from Person import Person
 from BookItem import BookItem
 
 
-class Librarian(Person):
-    """This is a Librarian class"""
+class Admin(Person):
+    """This is a Admin class"""
     def userlist(self):
         with open("PersonDatabase.csv", mode='r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -20,6 +20,7 @@ class Librarian(Person):
         a = Person(input("give the number of use you want to edit: "), "none", "none", "none", "none",
                           "none", "none", "none", "none", "none")
         a.editPerson()
+
     def writeToDatabase(self):
         row_contents = [self.number, self.givenName, self.surname,
                         self.streetAddress, self.zipCode, self.city, self.emailAddress, self.username, self.password,
@@ -30,7 +31,7 @@ class Librarian(Person):
             csv_writer = csv.writer(write_obj)
             # Add contents of list as last row in the csv file
             csv_writer.writerow(row_contents)
-        with open("LibrarianDatabase.csv", 'a+', newline='') as write_obj:
+        with open("AdminDatabase.csv", 'a+', newline='') as write_obj:
             # Create a writer object from csv module
             csv_writer = csv.writer(write_obj)
             # Add contents of list as last row in the csv file
@@ -57,17 +58,17 @@ class Librarian(Person):
 
         numberlist = []
 
-        with open("LibrarianDatabase.csv", mode='r') as csv_file:
+        with open("AdminDatabase.csv", mode='r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
 
             for r in csv_reader:
                 numberlist.append((r[0]))
-        with open("LibrarianDatabase.csv", mode='w', newline='') as csv_file:
+        with open("AdminDatabase.csv", mode='w', newline='') as csv_file:
             tmp = []
             writer = csv.writer(csv_file)
             for r in numberlist:
                 if self.number == str(r):
-                    print("[Librarian] SKIP")
+                    print("[Admin] SKIP")
                 else:
                     tmp.append([r])
             print(tmp)

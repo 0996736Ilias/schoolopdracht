@@ -23,15 +23,15 @@ def backupMakePersonCSV(backupDirectory):
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData)
 
-def backupMakeSubscriberSCV(backupDirectory):
+def backupMakeMemberSCV(backupDirectory):
     csvData = []
-    with open("SubscriberDatabase.csv", mode='r') as csv_file:
+    with open("MemberDatabase.csv", mode='r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
 
         for row in csv_reader:
            csvData.append(row)
 
-    with open(str(backupDirectory) + "/Subscriber" + datetime.now().strftime("%d-%b-%Y_%H-%M-%S") + ".csv", 'w+', newline='') as outfile:
+    with open(str(backupDirectory) + "/Member" + datetime.now().strftime("%d-%b-%Y_%H-%M-%S") + ".csv", 'w+', newline='') as outfile:
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData)
 
@@ -47,9 +47,9 @@ def backupMakeLoanAdministrationSCV(backupDirectory):
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData)
 
-def backupMakeLibrarianDatabaseSCV(backupDirectory):
+def backupMakeAdminDatabaseSCV(backupDirectory):
     csvData = []
-    with open("LibrarianDatabase.csv", mode='r') as csv_file:
+    with open("AdminDatabase.csv", mode='r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
 
         for row in csv_reader:
@@ -84,7 +84,7 @@ def backupRestorePersonCSV(folderName):
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData)  
 
-def backupRestoreSubscriberCSV(folderName):
+def backupRestoreMemberCSV(folderName):
     fileName = os.listdir('./Backups/' + folderName)
     csvData = []
     with open('./Backups/' + folderName + "/" + fileName[5], mode='r') as csv_file:
@@ -93,7 +93,7 @@ def backupRestoreSubscriberCSV(folderName):
         for row in csv_reader:
            csvData.append(row)
 
-    with open("SubscriberDatabase.csv", 'w+', newline='') as outfile:
+    with open("MemberDatabase.csv", 'w+', newline='') as outfile:
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData) 
 
@@ -110,7 +110,7 @@ def backupRestoreLoanAdministrationCSV(folderName):
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData) 
 
-def backupRestoreLibrarianDatabaseCSV(folderName):
+def backupRestoreAdminDatabaseCSV(folderName):
     fileName = os.listdir('./Backups/' + folderName)
     csvData = []
     with open('./Backups/' + folderName + "/" + fileName[2], mode='r') as csv_file:
@@ -119,7 +119,7 @@ def backupRestoreLibrarianDatabaseCSV(folderName):
         for row in csv_reader:
            csvData.append(row)
 
-    with open("LibrarianDatabase.csv", 'w+', newline='') as outfile:
+    with open("AdminDatabase.csv", 'w+', newline='') as outfile:
         writer = csv.writer(outfile, delimiter=',')
         writer.writerows(csvData) 
 
@@ -142,25 +142,69 @@ def backupRestoreBookJSON(folderName):
         jsonData = json.load(read_file)
 
     with open("BookDatabase.json", "w") as outfile:
-        json.dump(jsonData, outfile, indent = 4)     
+        json.dump(jsonData, outfile, indent = 4)
+
+def loadInBookJSON():
+    try:
+        with open ('./Data/' + 'Books.json') as read_file:
+            jsonData = json.load(read_file)
+
+        with open("BookDatabase.json", "w") as outfile:
+            json.dump(jsonData, outfile, indent = 4)
+    except:
+        print('[Loadfile] error file not found')
+def loadInAllUsers():
+    try:
+        csvData = []
+        with open('./Data/' + "Person.csv", mode='r') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+
+                for row in csv_reader:
+                    csvData.append(row)
+
+        with open("PersonDatabase.csv", 'w+', newline='') as outfile:
+                writer = csv.writer(outfile, delimiter=',')
+                writer.writerows(csvData)
+        csvData = []
+        with open('./Data/' + "Admin.csv", mode='r') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+
+                for row in csv_reader:
+                    csvData.append(row)
+
+        with open("AdminDatabase.csv", 'w+', newline='') as outfile:
+                writer = csv.writer(outfile, delimiter=',')
+                writer.writerows(csvData)
+        csvData = []
+        with open('./Data/' + "Member.csv", mode='r') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+
+                for row in csv_reader:
+                    csvData.append(row)
+
+        with open("MemberDatabase.csv", 'w+', newline='') as outfile:
+                writer = csv.writer(outfile, delimiter=',')
+                writer.writerows(csvData)
+    except:
+        print('[Loadfile] error file not found')
 
 def backupMake():
     path = "Backups/Backup_" + datetime.now().strftime("%d-%b-%Y_%H-%M-%S")
     os.mkdir(path)
     backupMakeBookJSON(path)
     backupMakePersonCSV(path)
-    backupMakeSubscriberSCV(path)
+    backupMakeMemberSCV(path)
     backupMakeLoanAdministrationSCV(path)
-    backupMakeLibrarianDatabaseSCV(path)
+    backupMakeAdminDatabaseSCV(path)
     backupMakeBookitemDatabaseSCV(path)
     print("[Backup]\n[Backup] Backup has been made with date: " + datetime.now().strftime("%d-%b-%Y_%H-%M-%S\n[Backup]"))
     
 def backupRestore(folderName):
     backupRestoreBookJSON(folderName)
     backupRestorePersonCSV(folderName)
-    backupRestoreSubscriberCSV(folderName)
+    backupRestoreMemberCSV(folderName)
     backupRestoreLoanAdministrationCSV(folderName)
-    backupRestoreLibrarianDatabaseCSV(folderName)
+    backupRestoreAdminDatabaseCSV(folderName)
     backupRestoreBookItemDatabaseCSV(folderName)
 
 def backupRestoreMenu():

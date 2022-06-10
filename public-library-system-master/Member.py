@@ -2,8 +2,8 @@ import csv
 from Person import Person
 
 
-class Subscriber(Person):
-    """This is a Subscriber class"""
+class Member(Person):
+    """This is a Member class"""
 
     def writeToDatabase(self):
         row_contents = [self.number, self.givenName, self.surname,
@@ -14,7 +14,7 @@ class Subscriber(Person):
             csv_writer = csv.writer(write_obj)
             # Add contents of list as last row in the csv file
             csv_writer.writerow(row_contents)
-        with open("SubscriberDatabase.csv", 'a+', newline='') as write_obj:
+        with open("MemberDatabase.csv", 'a+', newline='') as write_obj:
             # Create a writer object from csv module
             csv_writer = csv.writer(write_obj)
             # Add contents of list as last row in the csv file
@@ -42,17 +42,17 @@ class Subscriber(Person):
 
         numberlist = []
 
-        with open("SubscriberDatabase.csv", mode='r') as csv_file:
+        with open("MemberDatabase.csv", mode='r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
 
             for r in csv_reader:
                 numberlist.append((r[0]))
-        with open("SubscriberDatabase.csv", mode='w', newline='') as csv_file:
+        with open("MemberDatabase.csv", mode='w', newline='') as csv_file:
             tmp = []
             writer = csv.writer(csv_file)
             for r in numberlist:
                 if self.number == str(r[0]):
-                    print("[Subscriber] SKIP")
+                    print("[Member] SKIP")
                 else:
                     a = [r]
                     tmp.append(a)

@@ -3,7 +3,77 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\public-library-system-master\LibrarianDatabase.csv">
+        <entry key="\public-library-system-master\AdminDatabase.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Backups\Backup_09-Apr-2022_01-33-40\LoanAdministrationDatabase09-Apr-2022_01-33-40.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Backups\Backup_09-Apr-2022_01-33-40\PersonDatabase09-Apr-2022_01-33-40.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Backups\Backup_09-Jun-2022_15-43-22\LibrarianDatabase09-Jun-2022_15-43-22.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Backups\Backup_09-Jun-2022_16-09-37\LibrarianDatabase09-Jun-2022_16-09-37.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Backups\Backup_22-Apr-2022_13-39-06\Member22-Apr-2022_13-39-06.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\BookItemDatabase.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Data\Admin.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Data\Member.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\LoanAdministrationDatabase.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\PersonDatabase.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
