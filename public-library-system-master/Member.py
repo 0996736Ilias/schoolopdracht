@@ -22,8 +22,6 @@ class Member(Person):
 
 
     def delete(self):
-        if self.number == '':
-            print("[Member] Error no input")
         try:
             int(self.number)
             with open("PersonDatabase.csv", mode='r') as csv_file:

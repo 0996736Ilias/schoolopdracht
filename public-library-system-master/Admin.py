@@ -25,8 +25,6 @@ class Admin(Person):
             csv_writer.writerow([self.number])
 
     def delete(self):
-        if self.number == '':
-            print("[Member] Error no input")
         try:
             int(self.number)
             print("[Member] Error no input")
@@ -41,7 +39,7 @@ class Admin(Person):
                 writer = csv.writer(csv_file)
                 for r in List:
                     if str(self.number) == r.number:
-                        print("[PersonCSV] SKIP")
+                        print("[Admin] Deleting...")
                     else:
                         tmp.append(r.__repr__())
                 print(tmp)
@@ -60,10 +58,10 @@ class Admin(Person):
                 writer = csv.writer(csv_file)
                 for r in numberlist:
                     if self.number == str(r):
-                        print("[Admin] SKIP")
+                        print("[Admin] Deleted")
                     else:
                         tmp.append([r])
-                print(tmp)
+
                 writer.writerows(tmp)
         except:
             print("not an ID")
