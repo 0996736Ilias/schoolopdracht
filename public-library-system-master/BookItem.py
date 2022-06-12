@@ -70,7 +70,7 @@ class BookItem():
             print(tmp)
             writer.writerows(tmp)
 
-    def readFromBookItemCSV():
+    def readFromBookItemCSV(self):
         bookItemList = []
 
         with open("BookItemDatabase.csv", mode='r') as csv_file:

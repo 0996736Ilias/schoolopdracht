@@ -22,40 +22,44 @@ class Member(Person):
 
 
     def delete(self):
-        with open("PersonDatabase.csv", mode='r') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            List = []
-            for r in csv_reader:
-                List.append(Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
+        if self.number == '':
+            print("[Member] Error no input")
+        try:
+            int(self.number)
+            with open("PersonDatabase.csv", mode='r') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+                List = []
+                for r in csv_reader:
+                    List.append(Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
 
-        with open("PersonDatabase.csv", mode='w', newline='') as csv_file:
-            tmp = []
-            writer = csv.writer(csv_file)
-            for r in List:
-                if str(self.number) == r.number:
-                    print("[PersonCSV] SKIP")
-                else:
-                    tmp.append(r.__repr__())
-            print(tmp)
-            tmp.pop(-1)
-            writer.writerows(tmp)
+            with open("PersonDatabase.csv", mode='w', newline='') as csv_file:
+                tmp = []
+                writer = csv.writer(csv_file)
+                for r in List:
+                    if str(self.number) == r.number:
+                        print("[PersonCSV] Deleting")
+                    else:
+                        tmp.append(r.__repr__())
+                tmp.pop(-1)
+                writer.writerows(tmp)
 
-        numberlist = []
+            numberlist = []
 
-        with open("MemberDatabase.csv", mode='r') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
+            with open("MemberDatabase.csv", mode='r') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
 
-            for r in csv_reader:
-                numberlist.append((r[0]))
-        with open("MemberDatabase.csv", mode='w', newline='') as csv_file:
-            tmp = []
-            writer = csv.writer(csv_file)
-            for r in numberlist:
-                if self.number == str(r[0]):
-                    print("[Member] SKIP")
-                else:
-                    a = [r]
-                    tmp.append(a)
-            print(tmp)
-            tmp.pop(-1)
-            writer.writerows(tmp)
+                for r in csv_reader:
+                    numberlist.append((r[0]))
+            with open("MemberDatabase.csv", mode='w', newline='') as csv_file:
+                tmp = []
+                writer = csv.writer(csv_file)
+                for r in numberlist:
+                    if self.number == str(r[0]):
+                        print("[Member] Deleting")
+                    else:
+                        a = [r]
+                        tmp.append(a)
+                tmp.pop(-1)
+                writer.writerows(tmp)
+        except:
+            print("not an ID")

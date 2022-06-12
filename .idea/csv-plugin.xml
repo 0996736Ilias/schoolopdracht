@@ -24,14 +24,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\public-library-system-master\Backups\Backup_09-Jun-2022_15-43-22\LibrarianDatabase09-Jun-2022_15-43-22.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\public-library-system-master\Backups\Backup_09-Jun-2022_16-09-37\LibrarianDatabase09-Jun-2022_16-09-37.csv">
+        <entry key="\public-library-system-master\Backups\Backup_10-Jun-2022_02-06-22\LoanAdministrationDatabase10-Jun-2022_02-06-22.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -52,7 +45,56 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\public-library-system-master\DataToAdd\Admin.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\DataToAdd\BookItem.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\DataToAdd\LoanAdministration.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\DataToAdd\Member.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\DataToAdd\Person.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\public-library-system-master\Data\Admin.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Data\BookItem.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\Data\LoanAdministration.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -66,7 +108,21 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\public-library-system-master\Data\Person.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\public-library-system-master\LoanAdministrationDatabase.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\public-library-system-master\MemberDatabase.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

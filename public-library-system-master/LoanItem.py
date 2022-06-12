@@ -31,13 +31,12 @@ class LoanItem():
             for r in list:
                 if self.ISBN == r.ISBN and a == 0 and r.adminnumber == CURRENTUSER:
                     a = a + 1
-                    print("[LoanItem] SKIP")
+                    print("[LoanItem] Returning")
                 else:
                     tmp.append(r.__repr__())
-            print(tmp)
             writer.writerows(tmp)
 
-    def loanAvailabilityCheck( ISBN, author, title):
+    def loanAvailabilityCheck( self, ISBN, author, title):
 
         copiesCount = 0
         copies = 0
@@ -54,7 +53,7 @@ class LoanItem():
         else:
             return False
 
-    def readFromLoanItemCSV():
+    def readFromLoanItemCSV(self):
         loanItemList = []
 
         with open("loanAdministrationDatabase.csv", mode='r') as csv_file:
@@ -63,7 +62,7 @@ class LoanItem():
                 loanItemList.append(LoanItem(r[0], r[1], r[2]))
         return loanItemList
 
-    def loanedToPerson( ID):
+    def loanedToPerson( self, ID):
         loanedlist = LoanItem.readFromLoanItemCSV()
         catalog = BookItem.BookItem.readFromBookItemCSV()
         for j in loanedlist:

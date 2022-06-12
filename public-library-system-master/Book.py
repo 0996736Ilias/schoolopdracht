@@ -108,9 +108,9 @@ class Book():
                     r["imageLink"] = input("new imageLink ")
                     r["language"] = input("new language")
                     r["link"] = input("new link")
-                    r["pages"] = int(input("new pages"))
+                    r["pages"] = input("new pages")
                     r["title"] = input("new title")
-                    r["year"] = int(input("new year"))
+                    r["year"] = input("new year")
                     new_list.append(r)
                 else:
                     new_list.append(r)
