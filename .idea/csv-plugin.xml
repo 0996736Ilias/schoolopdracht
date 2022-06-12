@@ -31,6 +31,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\public-library-system-master\Backups\Backup_22-Apr-2022_13-39-06\LoanAdministrationDatabase22-Apr-2022_13-39-06.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\public-library-system-master\Backups\Backup_22-Apr-2022_13-39-06\Member22-Apr-2022_13-39-06.csv">
           <value>
             <Attribute>
@@ -46,20 +53,6 @@
           </value>
         </entry>
         <entry key="\public-library-system-master\DataToAdd\Admin.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\public-library-system-master\DataToAdd\BookItem.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\public-library-system-master\DataToAdd\LoanAdministration.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

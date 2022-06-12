@@ -40,10 +40,8 @@ class BookItem():
                     print("[BookItem] deleting...")
                 else:
                     tmp.append(r.__repr__())
-            print(tmp)
-
             writer.writerows(tmp)
-
+        print("[BOOK ITEM] Book Item deleted")
     def editBookItem(self):
         bookItemList = []
 
@@ -67,7 +65,6 @@ class BookItem():
                     tmp.append(r.__repr__())
                 else:
                     tmp.append(r.__repr__())
-            print(tmp)
             writer.writerows(tmp)
 
     def readFromBookItemCSV(self):

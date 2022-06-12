@@ -7,30 +7,24 @@ import BookItem
 import LoanItem
 import Catalog
 import csv
-import json
 
 
 class PLS():
     def __init__(self):
         self.CURRENTUSER = 0
         self.userList = self.readFromPersonCSV()
-        # self.bookList = self.readFromBookJSON()
-        self.subscriberList = self.readFromMemberrCSV()
+        self.memberList = self.readFromMemberrCSV()
         self.bookItemList = self.readFromBookItemCSV()
         self.librarianList = self.readFromAdminCSV()
+    def userlist(self):
+        with open("PersonDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            List = []
+            for r in csv_reader:
+                List.append(Person.Person(r[0], r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]))
 
-    def readFromBookJSON(self):
-        bookList = []
-
-        with open("BookDatabase.json", "r") as read_file:
-            data = json.load(read_file)
-
-        for row in data:
-            bookList.append(
-                Book.Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
-                          row["title"], row["ISBN"], row["year"]))
-
-        return bookList
+        for j in List:
+            print(j.__repr__())
 
     def readFromBookItemCSV(self):
         bookItemList = []
@@ -51,19 +45,6 @@ class PLS():
             for r in csv_reader:
                 loanItemList.append(LoanItem.LoanItem(r[0], r[1], r[2]))
         return loanItemList
-
-    def loandBooks(self):
-        with open("loanAdministrationDatabase.csv", mode='r') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            for r in csv_reader:
-                with open("BookItemDatabase.csv", mode='r') as books:
-                    bookItems = csv.reader(books, delimiter=',')
-                    for i in bookItems:
-                        if (r[2] == i[3]):
-                            if (i[3] != 'ISBN'):
-                                print(str(i) + ' by user with ID ' + r[0])
-                            else:
-                                print(i)
 
     def readFromPersonCSV(self):
         with open("PersonDatabase.csv", mode='r') as csv_file:
@@ -208,11 +189,11 @@ class PLS():
                 catalog.searchBook(self.CURRENTUSER)
             elif option == "2":
 
-                a = Admin.Admin("none", "none", "none", "none", "none",
-                                "none", "none", "none", "none", "none")
+                a = Catalog.Catalog()
                 a.printBooks()
             elif option == "3" and self.AdminCheck(self.CURRENTUSER):
-                self.loandBooks()
+                a = Catalog.Catalog()
+                a.loandBooks()
             elif option == "4" and self.AdminCheck(self.CURRENTUSER):
                 a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))
                 a.returnItem(input("give number of user from who the book is"))
@@ -274,13 +255,11 @@ class PLS():
 
 
             elif option == "8" and self.AdminCheck(self.CURRENTUSER):
-                a = Admin.Admin("none", "none", "none", "none", "none",
-                                "none", "none", "none", "none", "none")
+                a =Catalog.Catalog()
                 a.bookItemSearch()
 
             elif option == "9" and self.AdminCheck(self.CURRENTUSER):
-                a = Admin.Admin("none", "none", "none", "none", "none",
-                                "none", "none", "none", "none", "none")
+                a = Catalog.Catalog()
                 a.printBookItems()
             elif option == "10" and self.AdminCheck(self.CURRENTUSER):
                 a = BookItem.BookItem("none", "none", "none", input("give the ISBN of bookitem you want to delete: "))
@@ -289,14 +268,11 @@ class PLS():
                 a = BookItem.BookItem("none", "none", "none", input("give the ISBN of bookitem you want to edit: "))
                 a.editBookItem()
             elif option == "12" and self.AdminCheck(self.CURRENTUSER):
-                a = Admin.Admin("none", "none", "none", "none", "none",
-                                "none", "none", "none", "none", "none")
-                a.userlist()
+                self.userlist()
             elif option == "13" and self.AdminCheck(self.CURRENTUSER):
                 self.register()
             elif option == "14" and self.AdminCheck(self.CURRENTUSER):
-                a = Person.Person(input("give the number of use you want to edit: "), "none", "none", "none", "none",
-                                  "none", "none", "none", "none", "none")
+                a = Person.Person(input("give the number of use you want to edit: "))
                 a.editPerson()
             elif option == "15" and self.AdminCheck(self.CURRENTUSER):
                 c = input("give the number of user you want to use: ")
@@ -309,29 +285,31 @@ class PLS():
                                       "none", "none", "none", "none", "test")
                 a.delete()
             elif option == "16" and self.AdminCheck(self.CURRENTUSER):
-                DataManagement.DataManagement.backupMake()
+                DataManagement.backupMake()
 
             elif option == "17" and self.AdminCheck(self.CURRENTUSER):
-                DataManagement.DataManagement.backupRestoreMenu()
+                DataManagement.backupRestoreMenu()
             elif option == "18" and self.AdminCheck(self.CURRENTUSER):
-                DataManagement.DataManagement.addListOfUsers()
+                DataManagement.addListOfUsers()
 
             elif option == "19" and self.AdminCheck(self.CURRENTUSER):
-                DataManagement.DataManagement.addListOfBooks()
+                DataManagement.addListOfBooks()
             elif option == "20" and self.AdminCheck(self.CURRENTUSER):
-                DataManagement.DataManagement.loadInUsers()
+                DataManagement.loadInUsers()
 
             elif option == "21" and self.AdminCheck(self.CURRENTUSER):
-                DataManagement.DataManagement.loadInBookJSON()
+                DataManagement.loadInBookJSON()
             elif option == "22" and self.AdminCheck(self.CURRENTUSER):
                 self.__init__()
                 self.login()
-
+                self.__init__()
+                self.login()
             elif option == "23" and self.AdminCheck(self.CURRENTUSER):
                 exit()
 
             elif option == "3" and self.MemberCheck(self.CURRENTUSER):
-                print(self.readFromBookJSON())
+                a = Catalog.Catalog()
+                print(a.readFromBookJSON())
 
             elif option == "4" and self.MemberCheck(self.CURRENTUSER):
                 a = LoanItem.LoanItem("none", "none", input("give ISBN of book you want to return"))

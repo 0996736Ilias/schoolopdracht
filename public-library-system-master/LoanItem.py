@@ -23,7 +23,7 @@ class LoanItem():
 
     def returnItem( self, CURRENTUSER):
         a = 0
-        list = LoanItem.readFromLoanItemCSV()
+        list = self.readFromLoanItemCSV()
         with open("loanAdministrationDatabase.csv", mode='w', newline='') as csv_file:
             tmp = []
 
@@ -36,15 +36,16 @@ class LoanItem():
                     tmp.append(r.__repr__())
             writer.writerows(tmp)
 
-    def loanAvailabilityCheck( self, ISBN, author, title):
+    def loanAvailabilityCheck(self, ISBN, author, title):
 
         copiesCount = 0
         copies = 0
-        for book in BookItem.BookItem.readFromBookItemCSV():
+        a = BookItem.BookItem("none", "none", "none", "none")
+        for book in a.readFromBookItemCSV():
             if author == book.author and title == book.title:
                 copies = int(book.copies)
 
-        for loanItem in LoanItem.readFromLoanItemCSV():
+        for loanItem in self.readFromLoanItemCSV():
             if ISBN == loanItem.ISBN:
                 copiesCount += 1
 
@@ -71,8 +72,8 @@ class LoanItem():
                     if (j.ISBN == i.ISBN):
                         print(i)
 
-    def limitCheck( ID):
-        loanedlist = LoanItem.readFromLoanItemCSV()
+    def limitCheck(self, ID):
+        loanedlist = self.readFromLoanItemCSV()
         a = 0
         for j in loanedlist:
             if j.adminnumber == ID:

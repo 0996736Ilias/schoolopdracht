@@ -1,6 +1,7 @@
 import Book
 import json
-
+import csv
+import BookItem
 class Catalog():
     """This is a catalog class"""
 
@@ -18,6 +19,7 @@ class Catalog():
             bookList.append(Book.Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
                      row["title"], row["ISBN"], row["year"]))
         return bookList
+
     def chooseLoanBook(self,CURRENTUSER):
         print("[Catalog]")
         iteration = 1
@@ -108,3 +110,51 @@ class Catalog():
             break
         if inCatalog:
             self.chooseLoanBook(CURRENTUSER)
+
+    def printBooks(self):
+        bookList = []
+
+        with open("BookDatabase.json", "r") as read_file:
+            data = json.load(read_file)
+
+        for row in data:
+            bookList.append(
+                Book.Book(row["author"], row["country"], row["imageLink"], row["language"], row["link"], row["pages"],
+                          row["title"], row["ISBN"], row["year"]))
+        for j in bookList:
+            print(j)
+
+    def printBookItems(self):
+        bookItemList = []
+
+        with open("BookItemDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+
+            for r in csv_reader:
+                bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
+                print(r)
+
+    def bookItemSearch(self):
+        bookItemList = []
+        value = input("give an ISBN, Title or Author")
+        with open("BookItemDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+
+            for r in csv_reader:
+                bookItemList.append(BookItem.BookItem(r[0], r[1], r[2], r[3]))
+
+        for i in bookItemList:
+            if value.lower() == i.ISBN.lower() or value.lower() == i.title.lower() or value.lower() == i.author.lower():
+                print(i.__repr__())
+    def loandBooks(self):
+        with open("loanAdministrationDatabase.csv", mode='r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            for r in csv_reader:
+                with open("BookItemDatabase.csv", mode='r') as books:
+                    bookItems = csv.reader(books, delimiter=',')
+                    for i in bookItems:
+                        if (r[2] == i[3]):
+                            if (i[3] != 'ISBN'):
+                                print(str(i) + ' by user with ID ' + r[0])
+                            else:
+                                print(i)
